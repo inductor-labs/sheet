@@ -1,7 +1,16 @@
 - row = require "./row"
 
+.container
+  .form-group
+    %h4 Data Source
+    %input.form-control(value=@dataSource)
 
-%input(value=@dataSource)
+  .form-group
+    %h4 Mapping Transformation
+    %textarea.form-control(value=@mapTransform)
+
+  .form-group
+    %button.btn.btn-default(type="button" @click) Apply
 
 %table
   %thead
