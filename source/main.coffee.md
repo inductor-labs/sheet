@@ -7,19 +7,20 @@ Data you can touch
 
     O = require "o_0"
 
-    toTable = (output) ->
+    toTable = (headers, body) ->
       (data) ->
-        output data.map (item) ->
+        headers Object.keys(data[0])
+
+        body data.map (item) ->
           Object.keys(item).map (key) ->
             item[key]
 
     self =
-      new: ->
-        self.data.push ["New", 0, 0]
-      data: O []
+      headers: O []
+      body: O []
       dataSource: O "https://api.github.com/gists"
 
     self.dataSource.observe (newSource) ->
-      $.getJSON(newSource).then toTable(self.data)
+      $.getJSON(newSource).then toTable(self.headers, self.body)
 
     document.body.appendChild table self

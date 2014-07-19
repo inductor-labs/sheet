@@ -1,11 +1,16 @@
 - row = require "./row"
 
+
 %input(value=@dataSource)
 
 %table
-  - each @data, ->
-    -# TODO Update hamlet runtime to remove need for .row-wrap element
-    .row-wrap
-      = row @
+  %thead
+    %tr
+      - each @headers, (value) ->
+        %th
+          = value
 
-%button(click=@new) New
+  %tbody
+    - each @body, ->
+      -# TODO Update hamlet runtime to remove need for .row-wrap element
+      = row @
