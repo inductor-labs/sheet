@@ -4,38 +4,17 @@ Sheet
 Spreadsheets of the future. From the past.
 
     table = require "./templates/table"
-    CoffeeScript = require "coffee-script"
 
-    IDENTITY_FN = (x) -> x
-    ADDITIVE_IDENTITY = 0
+    compile = require "./compile"
 
     O = require "o_0"
-
-    errors = require "./errors"
 
     add = (a, b) ->
       a + b
 
+    ADDITIVE_IDENTITY = 0
     sum = (arr) ->
       arr.reduce(add, ADDITIVE_IDENTITY)
-
-    compile = (source) ->
-      if source.indexOf(",") >= 0
-        source = "[#{source}]"
-
-      try
-        errors.clear()
-
-        compiled = CoffeeScript.compile """
-          return ->
-            #{source}
-        """, {bare: true}
-
-        Function(compiled)()
-      catch e
-        errors.message "Mapping Compilation Error: #{e.message}"
-
-        IDENTITY_FN
 
     self =
       applyMapping: ->
