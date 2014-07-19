@@ -1,7 +1,12 @@
 #!/bin/bash
 set -e
 
-./node_modules/.bin/coffee -c ./main.coffee.md -o dist/main.js
+./node_modules/.bin/hamlet -d templates
+
+mkdir -p dist/templates
+mv templates/*.js dist/templates
+
+./node_modules/.bin/coffee -o dist -c source
 
 ./node_modules/.bin/browserify \
   dist/main.js \

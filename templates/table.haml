@@ -1,0 +1,9 @@
+- row = require "./row"
+
+%table
+  - each @data, ->
+    -# TODO Update hamlet runtime to remove need for .row-wrap element
+    .row-wrap
+      = row @
+
+%button(click=@new) New
