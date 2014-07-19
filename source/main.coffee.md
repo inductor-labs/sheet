@@ -23,20 +23,19 @@ Spreadsheets of the future. From the past.
     self =
       applyMapping: ->
         $.getJSON(@sourceUrl()).then(@data)
-      reduction: ->
-        t = compile @reduceTransform()
-
-        sum map(@data, t)
       data: O []
       headers: ->
         @mapTransform().split(",")
-      body: ->
-        map(@data, @transform())
-
       sourceUrl: O "https://api.github.com/gists"
       mapTransform: O "@id, @url, @owner.id"
       reduceTransform: O "@owner.id"
       transform: ->
         compile @mapTransform()
+      body: ->
+        map(@data, @transform())
+      reduction: ->
+        t = compile @reduceTransform()
+
+        sum map(@data, t)
 
     document.body.appendChild table self
