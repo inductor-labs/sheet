@@ -11,4 +11,4 @@ mv templates/*.js dist/templates
 ./node_modules/.bin/browserify \
   dist/main.js \
   --standalone Sheet \
-  -o dist/sheet.js
+  -o dist/standalone.js
