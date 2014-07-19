@@ -1,25 +1,36 @@
-- row = require "./row"
-
 .container
   .form-group
     %h4 Data Source
-    %input.form-control(value=@dataSource)
+    %input.form-control(value=@sourceUrl)
 
   .form-group
     %h4 Mapping Transformation
     %textarea.form-control(value=@mapTransform)
 
   .form-group
-    %button.btn.btn-default(type="button" @click) Apply
+    %button.btn.btn-default(type="button" click=@applyMapping) Apply Mapping
 
-%table
-  %thead
-    %tr
-      - each @headers, (value) ->
-        %th
-          = value
+  %pre= @transform
 
-  %tbody
-    - each @body, ->
-      -# TODO Update hamlet runtime to remove need for .row-wrap element
-      = row @
+  %table
+    %thead
+      %tr
+        - each @headers, (header) ->
+          %th= header.replace(/[@]/g, "").trim()
+
+    %tbody
+      - each @body, (cells) ->
+        %tr
+          - each cells, (value) ->
+            %td= value
+
+  .form-group
+    %h4 Reduce Transformation
+
+  .form-group
+    %h4 Sum
+    %textarea.form-control(value=@reduceTransform)
+
+  %h4 Output
+  .pre
+    .reduction-output= @reduction

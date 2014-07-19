@@ -1,50 +1,76 @@
 Sheet
 =====
 
-Data you can touch
+Spreadsheets of the future. From the past.
 
     table = require "./templates/table"
     CoffeeScript = require "coffee-script"
 
+    IDENTITY_FN = (x) -> x
+    ADDITIVE_IDENTITY = 0
+
     O = require "o_0"
 
-    findKeyByValue = (obj, value) ->
-      for prop of obj
-        if obj.hasOwnProperty(prop)
-          if obj[prop] is value
-            return prop
+    errors = require "./errors"
+
+    add = (a, b) ->
+      a + b
+
+    sum = (arr) ->
+      arr.reduce(add, ADDITIVE_IDENTITY)
+
+    compileSingle = (source) ->
+      try
+        errors.clear()
+        compiled = CoffeeScript.compile """
+          return ->
+            #{source}
+        """, {bare: true}
+
+        Function(compiled)()
+      catch e
+        errors.message "Reduction Compilation Error: #{e.message}"
+
+        IDENTITY_FN
 
     compile = (source) ->
       try
-        Function(CoffeeScript.compile(source, {bare: true}))
+        errors.clear()
+
+        compiled = CoffeeScript.compile """
+          return ->
+            [#{source}]
+        """, {bare: true}
+
+        Function(compiled)()
       catch e
-        console.log "Compilation Error: #{e.message}"
+        errors.message "Mapping Compilation Error: #{e.message}"
 
-    toTable = (transform, headers, body) ->
-      if transform.length
-        fn = compile(transform)
-
-        (data) ->
-          value = fn.call(data[0])
-          headers [].concat findKeyByValue(data[0], value)
-
-          body data.map (item) ->
-            fn.call(item)
-
-      else
-        (data) ->
-          headers Object.keys(data[0])
-
-          body data.map (item) ->
-            Object.keys(item).map (key) ->
-              item[key]
+        IDENTITY_FN
 
     self =
-      click: ->
-        $.getJSON(self.dataSource()).then toTable(self.mapTransform(), self.headers, self.body)
-      headers: O []
-      body: O []
-      dataSource: O "https://api.github.com/gists"
-      mapTransform: O "return @id"
+      applyMapping: ->
+        $.getJSON(@sourceUrl()).then(@data)
+      reduction: ->
+        t = compileSingle @reduceTransform()
+
+        transformedData = @data.map (d) ->
+          t.call(d, d)
+
+        sum(transformedData)
+      data: O []
+      headers: ->
+        @mapTransform().split(",")
+      body: ->
+        t = @transform()
+
+        @data.map (d) ->
+          t.call(d, d)
+
+      sourceUrl: O "https://api.github.com/gists"
+      mapTransform: O "@id, @url, @owner.id"
+      reduceTransform: O "@owner.id"
+      transform: ->
+        compile @mapTransform()
 
     document.body.appendChild table self
