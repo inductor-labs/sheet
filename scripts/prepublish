@@ -1,0 +1,9 @@
+#!/bin/bash
+set -e
+
+./node_modules/.bin/coffee -c ./main.coffee.md -o dist/main.js
+
+./node_modules/.bin/browserify \
+  dist/main.js \
+  --standalone Sheet \
+  -o dist/sheet.js

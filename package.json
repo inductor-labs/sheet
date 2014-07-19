@@ -1,0 +1,33 @@
+{
+  "name": "sheet",
+  "version": "0.0.0",
+  "description": "Spreadsheets of the future. From the past.",
+  "main": "dist/main.js",
+  "scripts": {
+    "test": "scripts/test",
+    "prepublish": "scripts/prepublish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:inductor-labs/sheet.git"
+  },
+  "keywords": [
+    "Spreadsheet"
+  ],
+  "author": [
+    "Matt Diebolt",
+    "Daniel X. Moore"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/inductor-labs/sheet/issues"
+  },
+  "homepage": "https://github.com/inductor-labs/sheet",
+  "devDependencies": {
+    "browserify": "^4.2.1",
+    "coffee-script": "^1.7.1",
+    "hamlet-cli": "^0.6.0-pre.10",
+    "hamlet-runtime": "^0.6.0-pre.21",
+    "mocha": "^1.20.1"
+  }
+}
