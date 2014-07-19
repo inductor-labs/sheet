@@ -16,24 +16,22 @@ Spreadsheets of the future. From the past.
     sum = (arr) ->
       arr.reduce(add, ADDITIVE_IDENTITY)
 
+    map = (arr, fn) ->
+      arr.map (item) ->
+        fn.call(item, item)
+
     self =
       applyMapping: ->
         $.getJSON(@sourceUrl()).then(@data)
       reduction: ->
         t = compile @reduceTransform()
 
-        transformedData = @data.map (d) ->
-          t.call(d, d)
-
-        sum(transformedData)
+        sum map(@data, t)
       data: O []
       headers: ->
         @mapTransform().split(",")
       body: ->
-        t = @transform()
-
-        @data.map (d) ->
-          t.call(d, d)
+        map(@data, @transform())
 
       sourceUrl: O "https://api.github.com/gists"
       mapTransform: O "@id, @url, @owner.id"
