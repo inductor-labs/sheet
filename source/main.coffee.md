@@ -19,27 +19,16 @@ Spreadsheets of the future. From the past.
     sum = (arr) ->
       arr.reduce(add, ADDITIVE_IDENTITY)
 
-    compileSingle = (source) ->
+    compile = (source) ->
+      if source.indexOf(",") >= 0
+        source = "[#{source}]"
+
       try
         errors.clear()
+
         compiled = CoffeeScript.compile """
           return ->
             #{source}
-        """, {bare: true}
-
-        Function(compiled)()
-      catch e
-        errors.message "Reduction Compilation Error: #{e.message}"
-
-        IDENTITY_FN
-
-    compile = (source) ->
-      try
-        errors.clear()
-
-        compiled = CoffeeScript.compile """
-          return ->
-            [#{source}]
         """, {bare: true}
 
         Function(compiled)()
@@ -52,7 +41,7 @@ Spreadsheets of the future. From the past.
       applyMapping: ->
         $.getJSON(@sourceUrl()).then(@data)
       reduction: ->
-        t = compileSingle @reduceTransform()
+        t = compile @reduceTransform()
 
         transformedData = @data.map (d) ->
           t.call(d, d)
