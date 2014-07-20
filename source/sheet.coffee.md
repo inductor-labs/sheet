@@ -38,14 +38,17 @@ One sheet of data transforms.
         applyMapping: ->
           $.getJSON(@sourceUrl()).then(@data)
 
+        prettyPrintData: ->
+          JSON.stringify @data(), null, 2
+
         headers: ->
           self.mapTransform().split(",")
 
-        transform: ->
+        mapping: ->
           compile self.mapTransform()
 
         body: ->
-          map(self.data, self.transform())
+          map(self.data, self.mapping())
 
         reduction: ->
           t = compile self.reduceTransform()

@@ -3,6 +3,8 @@
     %h4 Data Source
     %input.form-control(value=@sourceUrl)
 
+  %pre(style="max-height:300px;")= @prettyPrintData
+
   .form-group
     %h4 Mapping Transformation
     %textarea.form-control(value=@mapTransform)
@@ -10,7 +12,7 @@
   .form-group
     %button.btn.btn-default(type="button" click=@applyMapping) Apply Mapping
 
-  %pre= @transform
+  %pre= @mapping
 
   %table
     %thead
