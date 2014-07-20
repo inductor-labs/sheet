@@ -3,7 +3,9 @@
     %h4 Data Source
     %input.form-control(value=@sourceUrl)
 
-  %pre(style="max-height:300px;")= @prettyPrintData
+  %button.btn.btn-default(type="button" data-toggle="collapse" data-target="#raw-output") View Raw Source
+  #raw-output.collapse
+    %pre(style="max-height:300px;")= @prettyPrintData
 
   .form-group
     %h4 Mapping Transformation
