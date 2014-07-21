@@ -16,44 +16,68 @@ One sheet of data transforms.
     sum = (arr) ->
       arr.reduce(add, ADDITIVE_IDENTITY)
 
+    avg = (arr) ->
+      sum(arr) / arr.length
+
     map = (arr, fn) ->
       arr.map (item) ->
         fn.call(item, item)
 
     module.exports = (I={}, self=Model(I)) ->
       defaults I,
-        sourceUrl: "https://api.github.com/gists"
-        mapTransform: "@id, @url, @owner.id"
-        reduceTransform: "@owner.id"
+        aggregateTransform: "@[0]"
+        aggregator: "Sum"
         data: []
+        groupBy: "@owner.id"
+        mapTransform: "@id, @url, @owner.id"
+        sourceUrl: "https://api.github.com/gists"
 
       self.attrObservable """
+        aggregateTransform
+        aggregator
         data
+        groupBy
         mapTransform
-        reduceTransform
         sourceUrl
       """.split(/\s+/)...
 
       self.extend
-        applyMapping: ->
+        loadData: ->
           $.getJSON(@sourceUrl()).then(@data)
 
         prettyPrintData: ->
           JSON.stringify @data(), null, 2
 
         headers: ->
-          self.mapTransform().split(",")
+          @mapTransform().split ","
 
         mapping: ->
-          compile self.mapTransform()
-
-        body: ->
-          map(self.data, self.mapping())
+          compile @mapTransform()
 
         reduction: ->
-          t = compile self.reduceTransform()
+          compile @groupBy()
 
-          sum map(@data, t)
+        aggregation: ->
+          compile @aggregateTransform()
+
+        body: ->
+          map(@data, @mapping())
+
+        aggregatorOptions: ["Sum", "Avg"]
+
+        aggregate: ->
+          if @aggregateTransform().length
+            mappedData = map(@data, @reduction())
+            @aggregation().call mappedData, mappedData
+          else
+            fn = {
+              Sum: sum
+              Avg: avg
+            }[@aggregator()]
+
+            fn map(@data, @reduction())
+
+      self
 
 Helpers
 -------
