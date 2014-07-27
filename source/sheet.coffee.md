@@ -6,6 +6,8 @@ One sheet of data transforms.
     Model = require "./model"
 
     compile = require "./compile"
+    data = require "./data"
+    {map, sort} = require "./transforms"
 
     O = require "o_0"
 
@@ -19,10 +21,6 @@ One sheet of data transforms.
     avg = (arr) ->
       sum(arr) / arr.length
 
-    map = (arr, fn) ->
-      arr.map (item) ->
-        fn.call(item, item)
-
     module.exports = (I={}, self=Model(I)) ->
       defaults I,
         aggregateTransform: "@[0]"
@@ -30,6 +28,7 @@ One sheet of data transforms.
         data: []
         groupBy: "@owner.id"
         mapTransform: "@id, @url, @owner.id"
+        sortTransform: "@owner.id"
         sourceUrl: "https://api.github.com/gists"
 
       self.attrObservable """
@@ -38,12 +37,14 @@ One sheet of data transforms.
         data
         groupBy
         mapTransform
+        sortTransform
         sourceUrl
       """.split(/\s+/)...
 
       self.extend
         loadData: ->
-          $.getJSON(@sourceUrl()).then(@data)
+          @data(data())
+          #$.getJSON(@sourceUrl()).then(@data)
 
         prettyPrintData: ->
           JSON.stringify @data(), null, 2
@@ -54,6 +55,9 @@ One sheet of data transforms.
         mapping: ->
           compile @mapTransform()
 
+        sorting: ->
+          compile @sortTransform()
+
         reduction: ->
           compile @groupBy()
 
@@ -61,7 +65,8 @@ One sheet of data transforms.
           compile @aggregateTransform()
 
         body: ->
-          map(@data, @mapping())
+          sortResult = sort(@data, @sorting())
+          map(sortResult, @mapping())
 
         aggregatorOptions: ["Sum", "Avg"]
 
