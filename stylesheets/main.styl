@@ -7,9 +7,15 @@ html
 html, body, .main, .sidebar
   height: 100%
 
+body
+  padding: 1em
+
+.hidden
+  display: none !important
+
 .sidebar
   position: absolute
-  top: 0
+  top: 1em
   left: 0
   width: 350px
 
@@ -27,9 +33,11 @@ html, body, .main, .sidebar
 
 .timeline
   padding: 0 1em
+  padding-left: 0 // inherit this from the body
 
 .timeline-step
-  border-radius: 3px
+  border-radius: 4px
+  cursor: pointer
   position: relative
   padding: 1em
 
@@ -54,3 +62,18 @@ html, body, .main, .sidebar
   position: fixed
   bottom: 0.5em
   left: 80px
+
+.select-inline
+  display: inline-block
+  width: auto
+
+.inline-form-container
+  display: inline-block
+  width: 300px
+
+  .form-control
+    display: inline-block
+    margin: 0 0.5em
+    width: 210px
+    vertical-align: middle
+

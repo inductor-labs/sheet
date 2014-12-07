@@ -1,27 +1,31 @@
 %section.main
   .form-group
-    %h4 Data Source
-    .input-group
+    %h3 Data Source
+    %span Data comes from a
+    %select.form-control.select-inline
+      %option URL
+      %option file
+      %option manual entry
+    .inline-form-container
       %input.form-control(value=@sourceUrl)
-      %span.input-group-btn
-        %button.btn.btn-default(type="button" click=@loadData) Load
+      %button.btn.btn-default(type="button" click=@loadData) Load
 
-  %pre(style="height:300px;")= @prettyPrintData
+  %pre= @prettyPrintData
 
-  .form-group
+  .form-group.hidden
     %h4 Enter Row
     %textarea.form-control(value=@rowSource)
     %button.btn.btn-default(type="button" click=@addRow) Add Row
 
-  .form-group
+  .form-group.hidden
     %h4 Mapping Transformation
     %textarea.form-control(value=@mapTransform)
 
-  .form-group
+  .form-group.hidden
     %h4 Sorting Transformation
     %textarea.form-control(value=@sortTransform)
 
-  %table.table
+  %table.table.hidden
     %thead
       %tr
         - each @headers, (header) ->
@@ -33,25 +37,25 @@
           - each cells, (value) ->
             %td= value
 
-  .spreadsheet
+  .spreadsheet.hidden
 
-  .form-group
+  .form-group.hidden
     %h4 Reduce Transformation
 
-  .form-group
+  .form-group.hidden
     %h5 Premade
     %select.form-control(value=@aggregator options=@aggregatorOptions)
 
-  %h4 OR
+  %h4.hidden OR
 
-  .form-group
+  .form-group.hidden
     %h5 Custom
     %textarea.form-control(value=@aggregateTransform)
 
-  .form-group
+  .form-group.hidden
     %h4 Apply Across
     %textarea.form-control(value=@groupBy)
 
-  %h4 Output
-  .pre
+  %h4.hidden Output
+  .pre.hidden
     .reduction-output= @aggregate
