@@ -10,7 +10,11 @@
       .icon.edit-icon.inline-left(class="glyphicon glyphicon-pencil")
       .step-details
         .step-type Add, remove, or edit records
-        .step-description Added 2 rows, removed 1 column, edited 6 cells
+        .step-description
+          %ul
+            %li add 2 rows
+            %li remove 1 column
+            %li edit 6 cells
     .timeline-step.mapping
       .icon.mapping-icon.inline-left(class="glyphicon glyphicon-random")
       .step-details
@@ -24,7 +28,7 @@
     .timeline-step.expand
       .icon.expand-icon.inline-left(class="glyphicon glyphicon-fullscreen")
       .step-details
-        .step-type Apply expanstion function
+        .step-type Apply expansion function
         .step-description expand by @url
     .sidebar-footer
       %h4.centered Add transform
