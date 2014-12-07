@@ -1,2 +1,56 @@
-body
-  background-color: red
+html
+  box-sizing: border-box
+
+*, *:before, *:after
+  box-sizing: inherit
+
+html, body, .main, .sidebar
+  height: 100%
+
+.sidebar
+  position: absolute
+  top: 0
+  left: 0
+  width: 350px
+
+.main
+  padding-left: 350px
+
+.centered
+  text-align: center
+
+.step-type
+  font-size: 18px
+
+.icon
+  font-size: 24px
+
+.timeline
+  padding: 0 1em
+
+.timeline-step
+  border-radius: 3px
+  position: relative
+  padding: 1em
+
+  &:hover
+    background-color: #dedede
+
+.step-details
+  padding-left: 36px
+
+.step-description
+  color: #888
+
+.inline-left
+  position: absolute
+  top: 0
+  bottom: 0
+  left: 0.5em
+  margin: auto
+  height: 24px
+
+.sidebar-footer
+  position: fixed
+  bottom: 0.5em
+  left: 80px

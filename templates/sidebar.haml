@@ -1,2 +1,39 @@
 %aside.sidebar
-  %h2 Transform Timeline
+  %h3.centered Transform Timeline
+  .timeline
+    .timeline-step.dataset
+      .icon.dataset-icon.inline-left(class="glyphicon glyphicon-th")
+      .step-details
+        .step-type Dataset - url
+        .step-description https://github.com/inductor-labs/sheet
+    .timeline-step.edit
+      .icon.edit-icon.inline-left(class="glyphicon glyphicon-pencil")
+      .step-details
+        .step-type Add, remove, or edit records
+        .step-description Added 2 rows, removed 1 column, edited 6 cells
+    .timeline-step.mapping
+      .icon.mapping-icon.inline-left(class="glyphicon glyphicon-random")
+      .step-details
+        .step-type Apply mapping function
+        .step-description @id, @name, @url, @cost
+    .timeline-step.aggregate
+      .icon.aggregate-icon.inline-left(class="glyphicon glyphicon-filter")
+      .step-details
+        .step-type Apply aggregate function
+        .step-description sum records by @cost
+    .timeline-step.expand
+      .icon.expand-icon.inline-left(class="glyphicon glyphicon-fullscreen")
+      .step-details
+        .step-type Apply expanstion function
+        .step-description expand by @url
+    .sidebar-footer
+      %h4.centered Add transform
+      .btn-group
+        .btn.btn-default(type="button" title="Add edit transform")
+          %span.glyphicon.glyphicon-pencil
+        .btn.btn-default(type="button" title="Add map transform")
+          %span.glyphicon.glyphicon-random
+        .btn.btn-default(type="button" title="add aggregate transform")
+          %span.glyphicon.glyphicon-filter
+        .btn.btn-default(type="button" title="add expand transform")
+          %span.glyphicon.glyphicon-fullscreen
