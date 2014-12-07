@@ -9,6 +9,11 @@
   %pre(style="height:300px;")= @prettyPrintData
 
   .form-group
+    %h4 Enter Row
+    %textarea.form-control(value=@rowSource)
+    %button.btn.btn-default(type="button" click=@addRow) Add Row
+
+  .form-group
     %h4 Mapping Transformation
     %textarea.form-control(value=@mapTransform)
 
@@ -27,6 +32,8 @@
         %tr
           - each cells, (value) ->
             %td= value
+
+  .spreadsheet
 
   .form-group
     %h4 Reduce Transformation
