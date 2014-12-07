@@ -11,6 +11,18 @@ One sheet of data transforms.
 
     O = require "o_0"
 
+    toSpreadsheet = (data) ->
+      if data.length
+        headers = Object.keys data[0]
+
+        output = data.map (row) ->
+          headers.map (col) ->
+            row[col]
+
+        [headers].concat output
+      else
+        []
+
     add = (a, b) ->
       a + b
 
@@ -28,6 +40,7 @@ One sheet of data transforms.
         data: []
         groupBy: "@owner.id"
         mapTransform: "@id, @url, @owner.id"
+        rowSource: "{}"
         sortTransform: "@owner.id"
         sourceUrl: "https://api.github.com/gists"
 
@@ -37,14 +50,20 @@ One sheet of data transforms.
         data
         groupBy
         mapTransform
+        rowSource
         sortTransform
         sourceUrl
       """.split(/\s+/)...
 
       self.extend
+        addRow: ->
+          @data.push JSON.parse(@rowSource())
+
         loadData: ->
           @data(data())
           #$.getJSON(@sourceUrl()).then(@data)
+
+          @spreadsheet()
 
         prettyPrintData: ->
           JSON.stringify @data(), null, 2
@@ -63,6 +82,10 @@ One sheet of data transforms.
 
         aggregation: ->
           compile @aggregateTransform()
+
+        spreadsheet: ->
+          $(".spreadsheet").handsontable
+            data: toSpreadsheet @data()
 
         body: ->
           sortResult = sort(@data, @sorting())

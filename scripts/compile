@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+./node_modules/.bin/styl -w < stylesheets/main.styl > stylesheets/main.css
+
 ./node_modules/.bin/hamlet -d templates
 
 mkdir -p dist/templates

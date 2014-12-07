@@ -3,9 +3,11 @@ Sheet
 
 Spreadsheets of the future. From the past.
 
-    table = require "./templates/table"
     Sheet = require "./sheet"
-
     sheet = Sheet()
 
-    document.body.appendChild table sheet
+    table = require "./templates/table"
+    sidebar = require "./templates/sidebar"
+
+    document.body.appendChild sidebar()
+    document.body.appendChild table(sheet)
