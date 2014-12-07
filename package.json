@@ -4,8 +4,7 @@
   "description": "Spreadsheets of the future. From the past.",
   "main": "dist/main.js",
   "scripts": {
-    "test": "scripts/test",
-    "prepublish": "scripts/prepublish"
+    "test": "scripts/test"
   },
   "repository": {
     "type": "git",
@@ -28,7 +27,8 @@
     "coffee-script": "^1.7.1",
     "hamlet-cli": "^0.6.0-pre.10",
     "hamlet-runtime": "^0.6.0-pre.21",
-    "mocha": "^1.20.1"
+    "mocha": "^1.20.1",
+    "styl": "^0.2.8"
   },
   "dependencies": {
     "o_0": "^0.3.1"
