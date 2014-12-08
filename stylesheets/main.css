@@ -72,7 +72,12 @@ ul {
 }
 
 .timeline-step:hover {
+  background-color: #eee;
+}
+
+.timeline-step.active {
   background-color: #dedede;
+  border: 1px solid #999;
 }
 
 .step-details {

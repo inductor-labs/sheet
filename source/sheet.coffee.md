@@ -8,6 +8,7 @@ One sheet of data transforms.
     compile = require "./compile"
     data = require "./data"
     {map, sort} = require "./transforms"
+    {defaults} = require "./util"
 
     O = require "o_0"
 
@@ -106,14 +107,3 @@ One sheet of data transforms.
             fn map(@data, @reduction())
 
       self
-
-Helpers
--------
-
-    defaults = (target, objects...) ->
-      for object in objects
-        for name of object
-          unless target.hasOwnProperty(name)
-            target[name] = object[name]
-
-      return target
