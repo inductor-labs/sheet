@@ -18,10 +18,12 @@ ul
   display: none !important
 
 .sidebar
-  position: absolute
+  position: fixed
   top: 1em
   left: 0
   width: 350px
+  padding-bottom: 95px
+  overflow: auto
 
 .main
   padding-left: 350px
@@ -68,8 +70,13 @@ ul
 
 .sidebar-footer
   position: fixed
-  bottom: 0.5em
-  left: 80px
+  bottom: 0
+  left: 1em
+  width: 335px
+  text-align: center
+  background-color: #FFF
+  border-top: 1px solid #CCC
+  padding-bottom: 0.5em
 
 .select-inline
   display: inline-block
