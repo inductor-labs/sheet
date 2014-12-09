@@ -23,13 +23,13 @@
   %table.table.hidden
     %thead
       %tr
-        - each @headers, (header) ->
+        - @headers().forEach (header) ->
           %th= header.replace(/[@]/g, "").trim()
 
     %tbody
-      - each @body, (cells) ->
+      - @body().forEach (cells) ->
         %tr
-          - each cells, (value) ->
+          - cells.forEach (value) ->
             %td= value
 
   .spreadsheet.hidden
