@@ -1,7 +1,6 @@
 %aside.sidebar
   %h3.centered Transform Timeline
   .timeline
-    - parent = @
     - @steps.forEach (step) ->
       .timeline-step(click=step.click class="#{step.name()} #{step.class()}")
         .icon.inline-left.glyphicon(class=step.icon)
