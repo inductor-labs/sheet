@@ -20,4 +20,11 @@ A step tracked by in the Transform Timeline.
         type
       """.split(/\s+/)...
 
+      self.extend
+        class: ->
+          "active" if I.activeStep() is self
+
+        click: ->
+          I.activeStep(self)
+
       self
