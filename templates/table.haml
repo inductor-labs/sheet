@@ -1,56 +1,62 @@
 %section.main
-  .form-group
-    %h3 Dataset
-    %span Data comes from a
-    %select.form-control.select-inline
-      %option URL
-      %option file
-      %option manual entry
-    .inline-form-container
-      %input.form-control(value=@sourceUrl)
-      %button.btn.btn-default(type="button" click=@loadData) Load
+  .editor
+    - if @activeStep()
+      - transducer = @activeStep().transducer()
+      %h2.title= transducer.title
+      .form-group
+      - if transducer.type() is "dataset"
+        %span Data comes from a
+        %select.form-control.select-inline(@options)
+        .inline-form-container
+          %input.form-control(value=@sourceUrl)
+          %button.btn.btn-default(type="button" click=@loadData) Load
 
-  %pre= @prettyPrintData
+        - if @data().length
+          %pre= @prettyPrintData
 
-  .form-group.hidden
-    %h4 Mapping Transformation
-    %textarea.form-control(value=@mapTransform)
+        %table.table.hidden
+          %thead
+            %tr
+              - @headers().forEach (header) ->
+                %th= header.replace(/[@]/g, "").trim()
 
-  .form-group.hidden
-    %h4 Sorting Transformation
-    %textarea.form-control(value=@sortTransform)
+          %tbody
+            - @body().forEach (cells) ->
+              %tr
+                - cells.forEach (value) ->
+                  %td= value
+      - if transducer.type() is "edit"
+        .spreadsheet
+      - if transducer.type() is "mapping"
+        .form-group
+          %h4 Perform operations on a single row and return the same sized dataset. "@" refers to the current row you're working with.
+          %textarea.form-control(value=@mapTransform)
+      - if transducer.type() is "sorting"
+        .form-group
+          %h4 Reorder dataset based on relation of values in a row to each other.
+          %textarea.form-control(value=@sortTransform)
+      - if transducer.type() is "expansion"
+        .form-group
+          %h4 Expand
+          %textarea.form-control
+      - if transducer.type() is "aggregation"
+        .form-group
+          %h4 Filter dataset to a smaller size
 
-  %table.table.hidden
-    %thead
-      %tr
-        - @headers().forEach (header) ->
-          %th= header.replace(/[@]/g, "").trim()
+        .form-group
+          %h5 Premade
+          %select.form-control(value=@aggregator options=@aggregatorOptions)
 
-    %tbody
-      - @body().forEach (cells) ->
-        %tr
-          - cells.forEach (value) ->
-            %td= value
+        %h4 OR
 
-  .spreadsheet.hidden
+        .form-group
+          %h5 Custom
+          %textarea.form-control(value=@aggregateTransform)
 
-  .form-group.hidden
-    %h4 Reduce Transformation
+        .form-group
+          %h4 Apply Across
+          %textarea.form-control(value=@groupBy)
 
-  .form-group.hidden
-    %h5 Premade
-    %select.form-control(value=@aggregator options=@aggregatorOptions)
-
-  %h4.hidden OR
-
-  .form-group.hidden
-    %h5 Custom
-    %textarea.form-control(value=@aggregateTransform)
-
-  .form-group.hidden
-    %h4 Apply Across
-    %textarea.form-control(value=@groupBy)
-
-  %h4.hidden Output
-  .pre.hidden
-    .reduction-output= @aggregate
+        %h4 Output
+        .pre
+        .reduction-output= @aggregate

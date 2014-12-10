@@ -41,6 +41,7 @@ One sheet of data transforms.
         data: []
         groupBy: "@owner.id"
         mapTransform: "@id, @url, @owner.id"
+        options: ["URL", "file", "manual entry"]
         rowSource: "{}"
         sortTransform: "@owner.id"
         sourceUrl: "https://api.github.com/gists"
@@ -51,9 +52,11 @@ One sheet of data transforms.
         data
         groupBy
         mapTransform
+        options
         rowSource
         sortTransform
         sourceUrl
+        activeStep
       """.split(/\s+/)...
 
       self.extend

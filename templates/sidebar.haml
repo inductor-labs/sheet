@@ -1,15 +1,15 @@
 %aside.sidebar
   %h3.centered Transform Timeline
   .timeline
-    - @steps.forEach (step) ->
-      .timeline-step(click=step.click class="#{step.name()} #{step.class()}")
-        .icon.inline-left.glyphicon(class=step.icon)
+    - @steps.each ->
+      .timeline-step(@click @class)
+        .icon.inline-left.glyphicon(class=@icon)
         .step-details
-          .step-type= step.type
-          .step-description= step.description
+          .step-type= @type
+          .step-description= @description
     .sidebar-footer
       %h4.centered Add transform
       .btn-group
-        - @actions.forEach (action) ->
-          .btn.btn-default(type="button" click=action.click title=action.title)
-            %span.glyphicon(class=action.class)
+        - @actions.each ->
+          .btn.btn-default(type="button" @click @title)
+            %span.glyphicon(@class)

@@ -5,12 +5,13 @@ Spreadsheets of the future. From the past.
 
     O = require "o_0"
 
-    Sheet = require "./sheet"
-    sheet = Sheet()
-
     Step = require "./step"
-
     activeStep = O()
+
+    Sheet = require "./sheet"
+    sheet = Sheet
+      activeStep: activeStep
+
     steps = O []
     steps.observe (newSteps) ->
       activeStep newSteps[newSteps.length - 1]

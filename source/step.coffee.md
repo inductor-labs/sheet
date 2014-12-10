@@ -5,8 +5,6 @@ A step tracked by in the Transform Timeline.
 
     Model = require "./model"
 
-    O = require "o_0"
-
     {defaults} = require "./util"
 
     module.exports = (I={}, self=Model(I)) ->
@@ -22,9 +20,15 @@ A step tracked by in the Transform Timeline.
 
       self.extend
         class: ->
-          "active" if I.activeStep() is self
+          classes = self.name()
+          classes += " active" if I.activeStep() is self
+
+          classes
 
         click: ->
           I.activeStep(self)
+
+        transducer: ->
+          I.transducer
 
       self

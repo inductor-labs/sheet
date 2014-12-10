@@ -5,6 +5,7 @@ Transducers that can be applied to our dataset
 
     O = require "o_0"
     Step = require "./step"
+    Transducer = require "./transducer"
 
     module.exports = (steps, activeStep) ->
       return O [{
@@ -17,6 +18,9 @@ Transducers that can be applied to our dataset
             icon: "glyphicon-th"
             name: "dataset"
             type: "Dataset"
+            transducer: Transducer
+              type: "dataset"
+              title: "Data source"
       }, {
         class: "glyphicon-pencil"
         title: "Add edit transform"
@@ -27,6 +31,9 @@ Transducers that can be applied to our dataset
             icon: "glyphicon-pencil"
             name: "edit"
             type: "Add, remove, or edit records"
+            transducer: Transducer
+              type: "edit"
+              title: "Add, remove, or edit data rows"
       }, {
         class: "glyphicon-random"
         title: "Add mapping transform"
@@ -37,6 +44,9 @@ Transducers that can be applied to our dataset
             icon: "glyphicon-random"
             name: "mapping"
             type: "Apply mapping function"
+            transducer: Transducer
+              type: "mapping"
+              title: "Mapping function"
       }, {
         class: "glyphicon-filter"
         title: "Add aggregate transform"
@@ -47,6 +57,9 @@ Transducers that can be applied to our dataset
             icon: "glyphicon-filter"
             name: "aggregate"
             type: "Apply aggregate function"
+            transducer: Transducer
+              type: "aggregation"
+              title: "Aggregation function"
       }, {
         class: "glyphicon-fullscreen"
         title: "Add expand transform"
@@ -57,4 +70,7 @@ Transducers that can be applied to our dataset
             icon: "glyphicon-fullscreen"
             name: "expand"
             type: "Apply expansion function"
+            transducer: Transducer
+              type: "expansion"
+              title: "Expansion function"
       }]
