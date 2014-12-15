@@ -10,7 +10,11 @@ mv templates/*.js dist/templates
 
 ./node_modules/.bin/coffee -o dist -c source
 
+echo "browserifying..."
+
 ./node_modules/.bin/browserify \
   dist/main.js \
   --standalone Sheet \
   -o dist/standalone.js
+
+echo "done!"

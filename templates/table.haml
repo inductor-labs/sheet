@@ -1,4 +1,7 @@
+- transform = require "./transform"
+
 %section.main
+  %pre.input
   .editor
     - if @activeStep()
       - transducer = @activeStep().transducer()
@@ -30,7 +33,8 @@
       - if transducer.type() is "mapping"
         .form-group
           %h4 Perform operations on a single row and return the same sized dataset. "@" refers to the current row you're working with.
-          %textarea.form-control(value=@mapTransform)
+          = transform transducer
+
       - if transducer.type() is "sorting"
         .form-group
           %h4 Reorder dataset based on relation of values in a row to each other.
@@ -60,3 +64,5 @@
         %h4 Output
         .pre
         .reduction-output= @aggregate
+
+  .output
