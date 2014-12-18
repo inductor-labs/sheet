@@ -39,6 +39,7 @@ Spreadsheets of the future. From the past.
         , output
 
     window.outputToElement = (element, pipeline, input) ->
+      element.textContent = ""
       output = (item) ->
         console.log item
         element.textContent += item + "\n"
@@ -48,7 +49,6 @@ Spreadsheets of the future. From the past.
       return element
 
     output = document.createElement "pre"
-    document.body.appendChild output
 
     O ->
       outputToElement(output, activePipeline(steps(), activeStep()), require("./data")())
@@ -58,3 +58,5 @@ Spreadsheets of the future. From the past.
       actions: actions
 
     document.body.appendChild table(sheet)
+
+    document.querySelector(".main").appendChild output
