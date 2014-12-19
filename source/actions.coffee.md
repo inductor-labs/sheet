@@ -55,11 +55,11 @@ Transducers that can be applied to our dataset
             activeStep: activeStep
             description: "sum records by @cost"
             icon: "glyphicon-filter"
-            name: "aggregate"
-            type: "Apply aggregate function"
+            name: "filter"
+            type: "Apply filter function"
             transducer: Transducer
-              type: "aggregation"
-              title: "Aggregation function"
+              type: "filter"
+              title: "filter function"
       }, {
         class: "glyphicon-fullscreen"
         title: "Add expand transform"

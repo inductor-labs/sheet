@@ -42,26 +42,9 @@
         .form-group
           %h4 Expand
           %textarea.form-control
-      - if transducer.type() is "aggregation"
+      - if transducer.type() is "filter"
         .form-group
-          %h4 Filter dataset to a smaller size
-
-        .form-group
-          %h5 Premade
-          %select.form-control(value=@aggregator options=@aggregatorOptions)
-
-        %h4 OR
-
-        .form-group
-          %h5 Custom
-          %textarea.form-control(value=@aggregateTransform)
-
-        .form-group
-          %h4 Apply Across
-          %textarea.form-control(value=@groupBy)
-
-        %h4 Output
-        .pre
-        .reduction-output= @aggregate
+          %h4 Perform operations on a single row and return the same sized dataset. "@" refers to the current row you're working with.
+          = transform transducer
 
   .output
