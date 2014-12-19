@@ -47,9 +47,11 @@ Transducers that can be applied to our dataset
             transducer: Transducer
               type: "mapping"
               title: "Mapping function"
+              description: "Perform operations on a single row and return the same sized dataset. `@` refers to the current row you're working with."
+              source: "id: @id, description: @description"
       }, {
         class: "glyphicon-filter"
-        title: "Add aggregate transform"
+        title: "Add filter transform"
         click: ->
           steps.push Step
             activeStep: activeStep
@@ -60,6 +62,8 @@ Transducers that can be applied to our dataset
             transducer: Transducer
               type: "filter"
               title: "filter function"
+              description: "Filter to rows that match the provided criteria. `@` refers to the current row you're working with."
+              source: "@description?.length"
       }, {
         class: "glyphicon-fullscreen"
         title: "Add expand transform"
@@ -73,4 +77,6 @@ Transducers that can be applied to our dataset
             transducer: Transducer
               type: "expansion"
               title: "Expansion function"
+              description: "Expand"
+              source: ""
       }]

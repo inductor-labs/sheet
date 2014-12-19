@@ -40,7 +40,6 @@ A generalized data transformation
         source
         type
         title
-        instructions
       """.split(/\s+/)...
 
       compile = ->
