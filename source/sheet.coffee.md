@@ -5,7 +5,6 @@ One sheet of data transforms.
 
     Model = require "./model"
 
-    data = require "./data"
     {defaults} = require "./util"
 
     O = require "o_0"
@@ -25,10 +24,7 @@ One sheet of data transforms.
 
       self.extend
         loadData: ->
-          @data(data())
-          window.dataSource(@data())
+          @data(require("./data")())
           #$.getJSON(@sourceUrl()).then(@data)
-
-          @spreadsheet()
 
       self

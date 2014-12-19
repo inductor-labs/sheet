@@ -35,7 +35,7 @@ Spreadsheets of the future. From the past.
           transform pipe
         , output
 
-    window.outputToElement = (element, pipeline, input) ->
+    outputToElement = (element, pipeline, input) ->
       element.textContent = ""
       output = (item) ->
         console.log item
