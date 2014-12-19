@@ -3,6 +3,8 @@ Sheet
 
 Spreadsheets of the future. From the past.
 
+    "use strict"
+
     O = require "o_0"
 
     Step = require "./step"
@@ -22,17 +24,12 @@ Spreadsheets of the future. From the past.
     table = require "./templates/table"
     sidebar = require "./templates/sidebar"
 
-    map = (f) ->
-      (output) ->
-        (input) ->
-          output f.call(input, input)
-
     activePipeline = (steps, activeStep) ->
       activeStepIndex = steps.indexOf activeStep
 
       (output) ->
-        steps.slice(0, activeStepIndex+1).map (step) ->
-          map step.transducer().fn()
+        steps.slice(0, activeStepIndex + 1).map (step) ->
+          step.transducer().pipe()
         .reverse()
         .reduce (pipe, transform) ->
           transform pipe
