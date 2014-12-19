@@ -13,9 +13,6 @@
           %input.form-control(value=@sourceUrl)
           %button.btn.btn-default(type="button" click=@loadData) Load
 
-        - if @data().length
-          %pre= @prettyPrintData
-
         %table.table.hidden
           %thead
             %tr
