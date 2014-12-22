@@ -1,6 +1,8 @@
 - transform = require "./transform"
 
 %section.main
+  %pre= @inputData
+
   .editor
     - if @activeStep()
       - transducer = @activeStep().transducer()
@@ -16,4 +18,4 @@
           %input.form-control(value=@sourceUrl)
           %button.btn.btn-default(type="button" click=@loadData) Load
 
-  %pre= @rawData
+  %pre= @outputData

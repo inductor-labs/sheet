@@ -9,18 +9,16 @@ One sheet of data transforms.
 
     O = require "o_0"
 
-    activePipeline = (steps, activeStep) ->
-      activeStepIndex = steps.indexOf activeStep
-
+    pipelineAtStep = (steps, index) ->
       (output) ->
-        steps.slice(0, activeStepIndex + 1).map (step) ->
+        steps.slice(0, index).map (step) ->
           step.transducer().pipe()
         .reverse()
         .reduce (pipe, transform) ->
           transform pipe
         , output
 
-    dataOutput = (pipeline, input) ->
+    formatData = (pipeline, input) ->
       text = ""
 
       output = (item) ->
@@ -50,8 +48,16 @@ One sheet of data transforms.
           @data(require("./data")())
           #$.getJSON(@sourceUrl()).then(@data)
 
-        rawData: ->
-          pipelined = activePipeline @steps(), @activeStep()
-          dataOutput pipelined, @data()
+        inputData: ->
+          previousStepIndex = @steps().indexOf @activeStep()
+
+          pipelined = pipelineAtStep(@steps(), previousStepIndex)
+          formatData pipelined, @data()
+
+        outputData: ->
+          activeStepIndex = @steps().indexOf(@activeStep()) + 1
+
+          pipelined = pipelineAtStep(@steps(), activeStepIndex)
+          formatData pipelined, @data()
 
       self
