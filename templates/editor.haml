@@ -6,9 +6,6 @@
       - transducer = @activeStep().transducer()
       %h2.title= transducer.title
       .form-group
-      - if transducer.type() is "edit"
-        .spreadsheet
-      - else
         = transform transducer
     - else
       %h2.title Add dataset transform
