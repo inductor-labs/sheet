@@ -1,0 +1,22 @@
+- transform = require "./transform"
+
+%section.main
+  .editor
+    - if @activeStep()
+      - transducer = @activeStep().transducer()
+      %h2.title= transducer.title
+      .form-group
+      - if transducer.type() is "edit"
+        .spreadsheet
+      - else
+        = transform transducer
+    - else
+      %h2.title Add dataset transform
+      .form-group
+        %span Data comes from a
+        %select.form-control.select-inline(@options)
+        .inline-form-container
+          %input.form-control(value=@sourceUrl)
+          %button.btn.btn-default(type="button" click=@loadData) Load
+
+  %pre= @rawData

@@ -9,19 +9,6 @@ Transducers that can be applied to our dataset
 
     module.exports = (steps, activeStep) ->
       return O [{
-        class: "glyphicon-th"
-        title: "Add dataset transform"
-        click: ->
-          steps.push Step
-            activeStep: activeStep
-            description: "Dataset - url"
-            icon: "glyphicon-th"
-            name: "dataset"
-            type: "Dataset"
-            transducer: Transducer
-              type: "dataset"
-              title: "Data source"
-      }, {
         class: "glyphicon-pencil"
         title: "Add edit transform"
         click: ->
@@ -61,7 +48,7 @@ Transducers that can be applied to our dataset
             type: "Apply filter function"
             transducer: Transducer
               type: "filter"
-              title: "filter function"
+              title: "Filter function"
               description: "Filter to rows that match the provided criteria. `@` refers to the current row you're working with."
               source: "@description?.length"
       }, {
