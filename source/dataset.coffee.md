@@ -54,10 +54,23 @@ One sheet of data transforms.
           pipelined = pipelineAtStep(@steps(), previousStepIndex)
           formatData pipelined, @data()
 
+        inputDataCount: ->
+          self.inputData().length + " records"
+
         outputData: ->
           activeStepIndex = @steps().indexOf(@activeStep()) + 1
 
           pipelined = pipelineAtStep(@steps(), activeStepIndex)
           formatData pipelined, @data()
+
+        outputDataCount: ->
+          self.outputData().length + " records"
+
+        toggleResults: (e) ->
+          e.preventDefault()
+          debugger
+
+          targetSelector = $(e.currentTarget).data("target")
+          $(targetSelector).toggleClass "hidden"
 
       self

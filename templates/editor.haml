@@ -1,7 +1,12 @@
 - transform = require "./transform"
 
 %section.main
-  %pre= @inputData
+  .form-group
+    %h4
+      Data before current transform
+      = " (#{@inputDataCount()})"
+    %a(href="#" data-target=".formatted-input-data" click=@toggleResults) Show
+    %pre.formatted-input-data.hidden= @inputData
 
   .editor
     - if @activeStep()
@@ -18,4 +23,9 @@
           %input.form-control(value=@sourceUrl)
           %button.btn.btn-default(type="button" click=@loadData) Load
 
-  %pre= @outputData
+  .form-group
+    %h4
+      Data after current transform
+      = " (#{@outputDataCount()})"
+    %a(href="#" data-target=".formatted-output-data" click=@toggleResults) Show
+    %pre.formatted-output-data.hidden= @outputData
