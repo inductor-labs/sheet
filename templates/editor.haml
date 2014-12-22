@@ -2,9 +2,7 @@
 
 %section.main
   .form-group
-    %h4
-      Data before current transform
-      = " (#{@inputDataCount()})"
+    %h4 Data before current transform
     %a(href="#" data-target=".formatted-input-data" click=@toggleResults) Show
     %pre.formatted-input-data.hidden= @inputData
 
@@ -24,8 +22,6 @@
           %button.btn.btn-default(type="button" click=@loadData) Load
 
   .form-group
-    %h4
-      Data after current transform
-      = " (#{@outputDataCount()})"
+    %h4 Data after current transform
     %a(href="#" data-target=".formatted-output-data" click=@toggleResults) Show
     %pre.formatted-output-data.hidden= @outputData

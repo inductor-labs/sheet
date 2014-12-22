@@ -42,7 +42,7 @@ Transducers that can be applied to our dataset
         click: ->
           steps.push Step
             activeStep: activeStep
-            description: "sum records by @cost"
+            description: "filter records by description"
             icon: "glyphicon-filter"
             name: "filter"
             type: "Apply filter function"
