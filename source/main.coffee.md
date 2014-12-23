@@ -7,26 +7,25 @@ Spreadsheets of the future. From the past.
 
     O = require "o_0"
 
-    Step = require "./step"
-    activeStep = O()
-
-    steps = O []
-    steps.observe (newSteps) ->
-      activeStep newSteps[newSteps.length - 1]
-
     Dataset = require "./dataset"
-    dataset = Dataset
-      activeStep: activeStep
-      steps: steps
+    dataset = Dataset()
+
+    # TODO: Move into dataset
+    dataset.steps.observe (newSteps) ->
+      dataset.activeStep newSteps[newSteps.length - 1]
 
     Actions = require "./actions"
-    actions = Actions(steps, activeStep)
+    actions = Actions(dataset.steps, dataset.activeStep)
 
     editor = require "./templates/editor"
     sidebar = require "./templates/sidebar"
 
     document.body.appendChild sidebar
-      steps: steps
+      steps: dataset.steps
       actions: actions
+      activeStep: dataset.activeStep
 
     document.body.appendChild editor(dataset)
+
+    window.publish = ->
+      console.log dataset.toJSON()

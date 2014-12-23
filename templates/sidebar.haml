@@ -1,8 +1,11 @@
 %aside.sidebar
   %h3.centered Transform Timeline
   .timeline
-    - @steps.each ->
-      .timeline-step(@click @class)
+    - editor = this
+    - @steps.each (step) ->
+      - activeClass = -> "active" if step is editor.activeStep()
+      - click = -> editor.activeStep step
+      .timeline-step(click=click @class class=activeClass)
         .icon.inline-left.glyphicon(class=@icon)
         .step-details
           .step-type= @type

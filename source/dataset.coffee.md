@@ -4,6 +4,7 @@ Sheet
 One sheet of data transforms.
 
     Model = require "./model"
+    Step = require "./step"
 
     {defaults} = require "./util"
 
@@ -34,16 +35,18 @@ One sheet of data transforms.
         data: []
         options: ["URL", "file", "manual entry"]
         sourceUrl: "https://api.github.com/gists"
+        steps: []
+
+      self.attrModels "steps", Step
 
       self.attrObservable """
         data
         options
         sourceUrl
-        activeStep
-        steps
       """.split(/\s+/)...
 
       self.extend
+        activeStep: O()
         loadData: ->
           @data(require("./data")())
           #$.getJSON(@sourceUrl()).then(@data)

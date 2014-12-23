@@ -4,12 +4,10 @@ Step
 A step tracked by in the Transform Timeline.
 
     Model = require "./model"
-
-    {defaults} = require "./util"
+    Transducer = require "./transducer"
 
     module.exports = (I={}, self=Model(I)) ->
-      defaults I,
-        transducer: null
+      self.attrModel "transducer", Transducer
 
       self.attrObservable """
         description
@@ -17,18 +15,5 @@ A step tracked by in the Transform Timeline.
         name
         type
       """.split(/\s+/)...
-
-      self.extend
-        class: ->
-          classes = self.name()
-          classes += " active" if I.activeStep() is self
-
-          classes
-
-        click: ->
-          I.activeStep(self)
-
-        transducer: ->
-          I.transducer
 
       self
