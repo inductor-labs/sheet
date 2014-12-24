@@ -10,10 +10,6 @@ Spreadsheets of the future. From the past.
     Dataset = require "./dataset"
     dataset = Dataset()
 
-    # TODO: Move into dataset
-    dataset.steps.observe (newSteps) ->
-      dataset.activeStep newSteps[newSteps.length - 1]
-
     Actions = require "./actions"
     actions = Actions(dataset.steps, dataset.activeStep)
 
@@ -28,4 +24,4 @@ Spreadsheets of the future. From the past.
     document.body.appendChild editor(dataset)
 
     window.publish = ->
-      console.log dataset.toJSON()
+      console.log JSON.stringify(dataset.toJSON(), null, 2)

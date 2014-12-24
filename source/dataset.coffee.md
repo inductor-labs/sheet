@@ -45,6 +45,9 @@ One sheet of data transforms.
         sourceUrl
       """.split(/\s+/)...
 
+      self.steps.observe (newSteps) ->
+        self.activeStep newSteps[newSteps.length - 1]
+
       self.extend
         activeStep: O()
         loadData: ->
