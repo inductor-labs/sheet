@@ -1,7 +1,7 @@
-Sheet
-=====
+Dataset
+=======
 
-One sheet of data transforms.
+Data from a variety of sources.
 
     Model = require "./model"
     Step = require "./step"
@@ -9,6 +9,9 @@ One sheet of data transforms.
     {defaults} = require "./util"
 
     O = require "o_0"
+
+    isObject = (value) ->
+      value?.toString() is "[object Object]"
 
     pipelineAtStep = (steps, index) ->
       (output) ->
@@ -68,14 +71,16 @@ One sheet of data transforms.
           # structure
           spreadsheet = data.map (row) ->
             for _, value of row
-              value ?= ""
-
-              value = JSON.stringify(value) if value.toString() is "[object Object]"
+              if isObject(value)
+                value = JSON.stringify(value)
+              else
+                value ?= ""
 
               value
 
-          if (firstRow = data[0]) && firstRow.toString() is "[object Object]"
-            spreadsheet.unshift Object.keys firstRow
+          if (firstRow = data[0]) && isObject(firstRow)
+            # Add column names
+            spreadsheet.unshift Object.keys(firstRow)
 
           spreadsheet
 
