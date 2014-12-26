@@ -35,17 +35,11 @@ Data from a variety of sources.
     module.exports = (I={}, self=Model(I)) ->
       defaults I,
         data: []
-        options: ["URL", "file", "manual entry"]
-        sourceUrl: "https://api.github.com/gists"
         steps: []
 
       self.attrModels "steps", Step
 
-      self.attrObservable """
-        data
-        options
-        sourceUrl
-      """.split(/\s+/)...
+      self.attrObservable ["data"]
 
       self.steps.observe (newSteps) ->
         self.activeStep newSteps[newSteps.length - 1]
@@ -89,11 +83,5 @@ Data from a variety of sources.
 
           pipelined = pipelineAtStep(@steps(), activeStepIndex)
           self.toSpreadsheet(pipelineData(pipelined, @data()))
-
-        toggleResults: (e) ->
-          e.preventDefault()
-
-          targetSelector = $(e.currentTarget).data("target")
-          $(targetSelector).toggleClass "hidden"
 
       self

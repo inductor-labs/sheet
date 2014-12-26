@@ -1,9 +1,10 @@
 - transform = require "./transform"
+- click = (e) -> e.preventDefault(); $(e.currentTarget).next().toggleClass "hidden"
 
 %section.main
   .form-group
     %h4 Data before current transform
-    %a(href="#" data-target=".input-spreadsheet-data" click=@toggleResults) Show
+    %a(href="" click=click) Show
     .input-spreadsheet-data.hidden
 
   .editor
@@ -16,12 +17,14 @@
       %h2.title Add dataset transform
       .form-group
         %span Data comes from a
-        %select.form-control.select-inline(@options)
+        - options = ["URL", "file", "manual entry"]
+        - sourceUrl = "https://api.github.com/gists"
+        %select.form-control.select-inline(options=options)
         .inline-form-container
-          %input.form-control(value=@sourceUrl)
+          %input.form-control(value=sourceUrl)
           %button.btn.btn-default(type="button" click=@loadData) Load
 
   .form-group
     %h4 Data after current transform
-    %a(href="#" data-target=".output-spreadsheet-data" click=@toggleResults) Show
+    %a(href="" click=click) Show
     .output-spreadsheet-data.hidden

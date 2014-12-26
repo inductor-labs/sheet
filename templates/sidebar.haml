@@ -5,7 +5,7 @@
     - @steps.each (step) ->
       - activeClass = -> "active" if step is editor.activeStep()
       - click = -> editor.activeStep step
-      .timeline-step(click=click @class class=activeClass)
+      .timeline-step(click=click class=activeClass)
         .icon.inline-left.glyphicon(class=@icon)
         .step-details
           .step-type= @type

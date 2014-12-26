@@ -13,14 +13,13 @@ Spreadsheets of the future. From the past.
     Actions = require "./actions"
     actions = Actions(dataset.steps, dataset.activeStep)
 
-    editor = require "./templates/editor"
     sidebar = require "./templates/sidebar"
-
     document.body.appendChild sidebar
       steps: dataset.steps
       actions: actions
       activeStep: dataset.activeStep
 
+    editor = require "./templates/editor"
     document.body.appendChild editor(dataset)
 
     inputSpreadsheet = new Handsontable document.querySelector(".input-spreadsheet-data")
