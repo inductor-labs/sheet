@@ -23,5 +23,16 @@ Spreadsheets of the future. From the past.
 
     document.body.appendChild editor(dataset)
 
+    inputSpreadsheet = new Handsontable document.querySelector(".input-spreadsheet-data")
+    outputSpreadsheet = new Handsontable document.querySelector(".output-spreadsheet-data")
+
+    dataset.data.observe ->
+      inputSpreadsheet.loadData dataset.inputData()
+      outputSpreadsheet.loadData dataset.outputData()
+
+    dataset.activeStep.observe ->
+      inputSpreadsheet.loadData dataset.inputData()
+      outputSpreadsheet.loadData dataset.outputData()
+
     window.publish = ->
       console.log JSON.stringify(dataset.toJSON(), null, 2)

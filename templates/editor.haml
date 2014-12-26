@@ -3,8 +3,8 @@
 %section.main
   .form-group
     %h4 Data before current transform
-    %a(href="#" data-target=".formatted-input-data" click=@toggleResults) Show
-    %pre.formatted-input-data.hidden= @inputData
+    %a(href="#" data-target=".input-spreadsheet-data" click=@toggleResults) Show
+    .input-spreadsheet-data.hidden
 
   .editor
     - if @activeStep()
@@ -23,5 +23,5 @@
 
   .form-group
     %h4 Data after current transform
-    %a(href="#" data-target=".formatted-output-data" click=@toggleResults) Show
-    %pre.formatted-output-data.hidden= @outputData
+    %a(href="#" data-target=".output-spreadsheet-data" click=@toggleResults) Show
+    .output-spreadsheet-data.hidden

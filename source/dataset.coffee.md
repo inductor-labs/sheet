@@ -19,16 +19,15 @@ One sheet of data transforms.
           transform pipe
         , output
 
-    formatData = (pipeline, input) ->
-      text = ""
+    pipelineData = (pipeline, input) ->
+      output = []
 
-      output = (item) ->
-        console.log item
-        text += item + "\n"
+      append = (row) ->
+        output.push row
 
-      pipeline(output)(input)
+      pipeline(append)(input)
 
-      return text
+      output
 
     module.exports = (I={}, self=Model(I)) ->
       defaults I,
@@ -58,13 +57,33 @@ One sheet of data transforms.
           previousStepIndex = @steps().indexOf @activeStep()
 
           pipelined = pipelineAtStep(@steps(), previousStepIndex)
-          formatData pipelined, @data()
+          self.toSpreadsheet(pipelineData(pipelined, @data()))
+
+        toSpreadsheet: (data) ->
+          # transform dataset into
+          # ==================
+          # [col1, col2, col3]
+          # [val1, val2, val3]
+          # ==================
+          # structure
+          spreadsheet = data.map (row) ->
+            for _, value of row
+              value ?= ""
+
+              value = JSON.stringify(value) if value.toString() is "[object Object]"
+
+              value
+
+          if (firstRow = data[0]) && firstRow.toString() is "[object Object]"
+            spreadsheet.unshift Object.keys firstRow
+
+          spreadsheet
 
         outputData: ->
           activeStepIndex = @steps().indexOf(@activeStep()) + 1
 
           pipelined = pipelineAtStep(@steps(), activeStepIndex)
-          formatData pipelined, @data()
+          self.toSpreadsheet(pipelineData(pipelined, @data()))
 
         toggleResults: (e) ->
           e.preventDefault()
