@@ -32,14 +32,22 @@ Data from a variety of sources.
 
       output
 
+    transformCell = (cell) ->
+      cell ?= ""
+
+      if isObject(cell)
+        JSON.stringify(cell)
+      else
+        cell
+
     module.exports = (I={}, self=Model(I)) ->
       defaults I,
         data: []
         steps: []
 
-      self.attrModels "steps", Step
-
       self.attrObservable ["data"]
+
+      self.attrModels "steps", Step
 
       self.steps.observe (newSteps) ->
         self.activeStep newSteps[newSteps.length - 1]
@@ -50,38 +58,28 @@ Data from a variety of sources.
           @data(require("./data")())
           #$.getJSON(@sourceUrl()).then(@data)
 
-        inputData: ->
-          previousStepIndex = @steps().indexOf @activeStep()
+        activeIndex: ->
+          @steps().indexOf @activeStep()
 
-          pipelined = pipelineAtStep(@steps(), previousStepIndex)
-          self.toSpreadsheet(pipelineData(pipelined, @data()))
+        dataAtIndex: (index) ->
+          transformAtStep = pipelineAtStep @steps(), index
+          pipelineData transformAtStep, @data()
+
+        inputData: ->
+          self.toSpreadsheet self.dataAtIndex(self.activeIndex())
+
+        outputData: ->
+          self.toSpreadsheet self.dataAtIndex(self.activeIndex() + 1)
 
         toSpreadsheet: (data) ->
-          # transform dataset into
-          # ==================
-          # [col1, col2, col3]
-          # [val1, val2, val3]
-          # ==================
-          # structure
           spreadsheet = data.map (row) ->
             for _, value of row
-              if isObject(value)
-                value = JSON.stringify(value)
-              else
-                value ?= ""
+              transformCell(value)
 
-              value
-
+          # Add column names
           if (firstRow = data[0]) && isObject(firstRow)
-            # Add column names
             spreadsheet.unshift Object.keys(firstRow)
 
           spreadsheet
-
-        outputData: ->
-          activeStepIndex = @steps().indexOf(@activeStep()) + 1
-
-          pipelined = pipelineAtStep(@steps(), activeStepIndex)
-          self.toSpreadsheet(pipelineData(pipelined, @data()))
 
       self
