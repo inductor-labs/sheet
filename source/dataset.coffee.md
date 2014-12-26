@@ -55,15 +55,15 @@ Data from a variety of sources.
       self.extend
         activeStep: O()
         loadData: ->
-          @data(require("./data")())
+          self.data(require("./data")())
           #$.getJSON(@sourceUrl()).then(@data)
 
         activeIndex: ->
-          @steps().indexOf @activeStep()
+          self.steps().indexOf self.activeStep()
 
         dataAtIndex: (index) ->
-          transformAtStep = pipelineAtStep @steps(), index
-          pipelineData transformAtStep, @data()
+          transformAtStep = pipelineAtStep self.steps(), index
+          pipelineData transformAtStep, self.data()
 
         inputData: ->
           self.toSpreadsheet self.dataAtIndex(self.activeIndex())
@@ -71,6 +71,8 @@ Data from a variety of sources.
         outputData: ->
           self.toSpreadsheet self.dataAtIndex(self.activeIndex() + 1)
 
+        # TODO: handsontable supports loading data from an object literal
+        # switch to that format.
         toSpreadsheet: (data) ->
           spreadsheet = data.map (row) ->
             for _, value of row
@@ -81,5 +83,10 @@ Data from a variety of sources.
             spreadsheet.unshift Object.keys(firstRow)
 
           spreadsheet
+
+      # HACK to follow along with the activeStep's transducer source
+      self.activeStep.observe ->
+        self.activeStep().transducer().source.stopObserving()
+        self.activeStep().transducer().source.observe(window.reloadSpreadsheets)
 
       self

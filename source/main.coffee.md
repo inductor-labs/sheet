@@ -23,7 +23,8 @@ Spreadsheets of the future. From the past.
     inputSpreadsheet = new Handsontable document.querySelector(".input-spreadsheet-data")
     outputSpreadsheet = new Handsontable document.querySelector(".output-spreadsheet-data")
 
-    reloadSpreadsheets = ->
+    # Why do I need the fat arrow here?
+    window.reloadSpreadsheets = =>
       inputSpreadsheet.loadData dataset.inputData()
       outputSpreadsheet.loadData dataset.outputData()
 
