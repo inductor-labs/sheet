@@ -8,18 +8,6 @@ Transducers that can be applied to our dataset
 
     module.exports = (steps, activeStep) ->
       return O [{
-        class: "glyphicon-pencil"
-        title: "Add edit transform"
-        click: ->
-          steps.push Step
-            description: "add 2 rows, remove 1 column, edit 6 cells"
-            icon: "glyphicon-pencil"
-            name: "edit"
-            type: "Add, remove, or edit records"
-            transducer:
-              type: "edit"
-              title: "Add, remove, or edit data rows"
-      }, {
         class: "glyphicon-random"
         title: "Add mapping transform"
         click: ->
