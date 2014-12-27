@@ -32,9 +32,7 @@ Data from a variety of sources.
 
       output
 
-    transformCell = (cell) ->
-      cell ?= ""
-
+    transformCell = (cell="") ->
       if isObject(cell)
         JSON.stringify(cell)
       else
@@ -83,10 +81,5 @@ Data from a variety of sources.
             spreadsheet.unshift Object.keys(firstRow)
 
           spreadsheet
-
-      # HACK to follow along with the activeStep's transducer source
-      self.activeStep.observe ->
-        self.activeStep().transducer().source.stopObserving()
-        self.activeStep().transducer().source.observe(window.reloadSpreadsheets)
 
       self
