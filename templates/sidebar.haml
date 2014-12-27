@@ -1,15 +1,11 @@
+- stepTemplate = require "./step"
+
 %aside.sidebar
   %h3.centered Transform Timeline
   .timeline
     - editor = this
     - @steps.each (step) ->
-      - activeClass = -> "active" if step is editor.activeStep()
-      - click = -> editor.activeStep step
-      .timeline-step(click=click class=activeClass)
-        .icon.inline-left.glyphicon(class=@icon)
-        .step-details
-          .step-type= @type
-          %textarea.form-control.step-description= @description
+      = stepTemplate({step, editor})
     .sidebar-footer
       %h4.centered Add transform
       .btn-group

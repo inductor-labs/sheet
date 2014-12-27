@@ -1,0 +1,7 @@
+- activeClass = -> "active" if @step is @editor.activeStep()
+- click = -> @editor.activeStep @step
+.timeline-step(click=click class=activeClass)
+  .icon.inline-left.glyphicon(class=@step.icon)
+  .step-details
+    .step-type= @step.type
+    %textarea.form-control.step-description= @step.description

@@ -69,8 +69,8 @@ Data from a variety of sources.
         outputData: ->
           self.toSpreadsheet self.dataAtIndex(self.activeIndex() + 1)
 
-        # TODO: handsontable supports loading data from an object literal
-        # switch to that format.
+        # TODO: handsontable supports loading data from an object literal.
+        # Switch to that format.
         toSpreadsheet: (data) ->
           spreadsheet = data.map (row) ->
             for _, value of row
