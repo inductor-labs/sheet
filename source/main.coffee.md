@@ -18,6 +18,7 @@ Spreadsheets of the future. From the past.
       steps: dataset.steps
       actions: actions
       activeStep: dataset.activeStep
+      data: dataset.data
 
     editor = require "./templates/editor"
     document.body.appendChild editor(dataset)
