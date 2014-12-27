@@ -7,9 +7,6 @@ html
 html, body, .main, .sidebar
   height: 100%
 
-body
-  padding: 1em
-
 ul
   margin-bottom: 0
   padding-left: 1.5em
@@ -19,14 +16,18 @@ ul
 
 .sidebar
   position: fixed
-  top: 1em
   left: 0
+  top: 0
   width: 350px
   padding-bottom: 95px
   overflow: auto
+  background-color: #fff
+  z-index: 1
+  border-right: 1px solid #ccc
 
 .main
-  padding-left: 350px
+  padding-left: 365px /* to simulate padding-left: 1em */
+  padding-top: 1em
 
 .centered
   text-align: center
@@ -37,12 +38,7 @@ ul
 .icon
   font-size: 24px
 
-.timeline
-  padding: 0 1em
-  padding-left: 0 // inherit this from the body
-
 .timeline-step
-  border-radius: 4px
   cursor: pointer
   position: relative
   padding: 1em
@@ -52,7 +48,6 @@ ul
 
   &.active
     background-color: #dedede
-    border: 1px solid #999
 
 .step-details
   padding-left: 36px
@@ -71,7 +66,7 @@ ul
 .sidebar-footer
   position: fixed
   bottom: 0
-  left: 1em
+  left: 0.5em
   width: 335px
   text-align: center
   background-color: #FFF
