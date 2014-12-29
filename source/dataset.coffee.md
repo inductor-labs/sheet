@@ -72,6 +72,28 @@ Data from a variety of sources.
         outputData: ->
           self.toSpreadsheet self.dataAtIndex(self.activeIndex() + 1)
 
+        publish: ->
+          if name = prompt "What should we call this sheet?"
+            localStorage.setItem "sheet:#{name}", JSON.stringify(self.toJSON())
+            console.log JSON.stringify(self.toJSON(), null, 2)
+
+        savedSheets: ->
+          sheetKeys = Object.keys(localStorage).filter (key) ->
+            key.indexOf("sheet:") >= 0
+
+          sheetKeys.map (key) ->
+            {
+              name: key.replace("sheet:", "")
+              value: localStorage.getItem(key)
+            }
+
+          sheetKeys.unshift {
+            name: "Choose a sheet to load"
+            value: -1
+          }
+
+          sheetKeys
+
         # TODO: handsontable supports loading data from an object literal.
         # Switch to that format.
         toSpreadsheet: (data) ->

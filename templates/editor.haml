@@ -2,6 +2,10 @@
 - click = (e) -> e.preventDefault(); $(e.currentTarget).next().toggleClass "hidden"
 
 %section.main
+  .publish-container
+    %button.btn.btn-default(type="button" click=@publish) Publish
+    %select.form-control.select-inline(options=@savedSheets)
+
   .form-group
     %h4 Data before current transform
     %a(href="" click=click) Show

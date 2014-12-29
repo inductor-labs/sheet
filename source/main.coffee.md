@@ -32,6 +32,3 @@ Spreadsheets of the future. From the past.
     outputData = O ->
       dataset.outputData()
     outputData.observe outputSpreadsheet.loadData
-
-    window.publish = ->
-      console.log JSON.stringify(dataset.toJSON(), null, 2)

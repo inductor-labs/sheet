@@ -119,3 +119,12 @@ ul {
   width: 210px;
   vertical-align: middle;
 }
+
+.publish-container {
+  position: fixed;
+  right: 1em;
+}
+
+.publish-container .btn {
+  margin-left: 0.5em;
+}
