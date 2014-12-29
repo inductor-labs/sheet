@@ -38,10 +38,6 @@ Data from a variety of sources.
       else
         cell
 
-    DEBUG = (name) ->
-      (value) ->
-        console.log name, value
-
     module.exports = (I={}, self=Model(I)) ->
       defaults I,
         data: []
