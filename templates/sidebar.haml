@@ -1,15 +1,12 @@
 - stepTemplate = require "./step"
+- Actions = require "./actions"
 
 %aside.sidebar
   %h3.centered Transform Timeline
   .timeline
     - editor = this
-    - @steps.each (step) ->
-      = stepTemplate({step, editor})
-    .sidebar-footer
-      %h4.centered Add transform
-      .btn-group
-        - disabled = "disabled" unless editor.data().length
-        - @actions.each ->
-          .btn.btn-default(type="button" @click @title disabled=disabled)
-            %span.glyphicon(@class)
+    = @steps.map (step) -> stepTemplate({step, editor})
+
+  .sidebar-footer
+    %h4.centered Add transform
+    = Actions this

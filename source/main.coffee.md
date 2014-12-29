@@ -10,8 +10,7 @@ Spreadsheets of the future. From the past.
     Dataset = require "./dataset"
     dataset = Dataset()
 
-    Actions = require "./actions"
-    actions = Actions(dataset.steps, dataset.activeStep)
+    actions = require "./actions"
 
     sidebar = require "./templates/sidebar"
     document.body.appendChild sidebar

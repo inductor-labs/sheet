@@ -16,4 +16,6 @@ A step tracked by in the Transform Timeline.
         type
       """.split(/\s+/)...
 
+      self.description.observe (x) -> console.log "DESCRIPTION:", x
+
       self
