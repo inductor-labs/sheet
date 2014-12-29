@@ -38,12 +38,16 @@ Data from a variety of sources.
       else
         cell
 
+    DEBUG = (name) ->
+      (value) ->
+        console.log name, value
+
     module.exports = (I={}, self=Model(I)) ->
       defaults I,
         data: []
         steps: []
 
-      self.attrObservable ["data"]
+      self.attrObservable "activeStep", "data"
 
       self.attrModels "steps", Step
 
@@ -51,7 +55,6 @@ Data from a variety of sources.
         self.activeStep newSteps[newSteps.length - 1]
 
       self.extend
-        activeStep: O()
         loadData: ->
           self.data(require("./data")())
           #$.getJSON(@sourceUrl()).then(@data)

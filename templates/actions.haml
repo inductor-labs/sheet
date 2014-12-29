@@ -1,0 +1,9 @@
+- Step = require "../step" # TODO this path is slightly brittle
+
+.btn-group
+  - editor = this
+  - disabled = "disabled" unless editor.data().length
+  - @actions.forEach (action) ->
+    - click = -> editor.steps.push Step action.data
+    .btn.btn-default(type="button" click=click title=action.title disabled=disabled)
+      %span.glyphicon(class=action.class)
