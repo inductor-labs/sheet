@@ -29,7 +29,7 @@ Transducers that can be applied to our dataset
             type: "filter"
             title: "Filter function"
             description: "Filter to rows that match the provided criteria. `@` refers to the current row you're working with."
-            source: "@description?.length"
+            source: "@description"
       }, {
         class: "glyphicon-fullscreen"
         title: "Add expand transform"
