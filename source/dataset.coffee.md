@@ -38,6 +38,19 @@ Data from a variety of sources.
       else
         cell
 
+    # keys in localStorage saved by this application
+    localStorageKeys = ->
+      Object.keys(localStorage).filter (key) ->
+        key.indexOf("sheet:") >= 0
+
+    loadableSheetOptions = ->
+      selectOptions = localStorageKeys().map (key) ->
+        { name: key.replace("sheet:", ""), value: key }
+
+      selectOptions.unshift { name: "Choose a sheet to load", value: -1 }
+
+      selectOptions
+
     module.exports = (I={}, self=Model(I)) ->
       defaults I,
         data: []
@@ -74,21 +87,9 @@ Data from a variety of sources.
             console.log JSON.stringify(self.toJSON(), null, 2)
 
         savedSheets: ->
-          sheetKeys = Object.keys(localStorage).filter (key) ->
-            key.indexOf("sheet:") >= 0
+          loadableSheetOptions()
 
-          sheetKeys.map (key) ->
-            {
-              name: key.replace("sheet:", "")
-              value: localStorage.getItem(key)
-            }
-
-          sheetKeys.unshift {
-            name: "Choose a sheet to load"
-            value: -1
-          }
-
-          sheetKeys
+        loadedSheet: O(loadableSheetOptions()[0])
 
         # TODO: handsontable supports loading data from an object literal.
         # Switch to that format.
@@ -102,5 +103,14 @@ Data from a variety of sources.
             spreadsheet.unshift Object.keys(firstRow)
 
           spreadsheet
+
+      self.loadedSheet.observe (sheet) ->
+        obj = JSON.parse localStorage.getItem(sheet.value)
+
+        steps = obj.steps.map (step) ->
+          Step(step)
+
+        self.steps(steps)
+        self.data(obj.data)
 
       self

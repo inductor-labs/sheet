@@ -4,7 +4,7 @@
 %section.main
   .publish-container
     %button.btn.btn-default(type="button" click=@publish) Publish
-    %select.form-control.select-inline(options=@savedSheets)
+    %select.form-control.select-inline(options=@savedSheets value=@loadedSheet)
 
   .form-group
     %h4 Data before current transform
