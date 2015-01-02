@@ -10,17 +10,11 @@ Spreadsheets of the future. From the past.
     Dataset = require "./dataset"
     dataset = Dataset()
 
-    actions = require "./actions"
+    Sidebar = require "./templates/sidebar"
+    document.body.appendChild Sidebar(dataset)
 
-    sidebar = require "./templates/sidebar"
-    document.body.appendChild sidebar
-      steps: dataset.steps
-      actions: actions
-      activeStep: dataset.activeStep
-      data: dataset.data
-
-    editor = require "./templates/editor"
-    document.body.appendChild editor(dataset)
+    EditorTemplate = require "./templates/editor"
+    document.body.appendChild EditorTemplate(dataset)
 
     inputSpreadsheet = new Handsontable document.querySelector(".input-spreadsheet-data")
     outputSpreadsheet = new Handsontable document.querySelector(".output-spreadsheet-data")

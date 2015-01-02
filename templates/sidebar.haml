@@ -5,7 +5,7 @@
   %h3.centered Transform Timeline
   .timeline
     - editor = this
-    = @steps.map (step) -> stepTemplate({step, editor})
+    = @steps.map (step, index) -> stepTemplate({step, editor, stepIndex: index})
 
   .sidebar-footer
     %h4.centered Add transform

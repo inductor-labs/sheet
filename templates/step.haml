@@ -1,5 +1,5 @@
-- activeClass = -> "active" if @step is @editor.activeStep()
-- click = -> @editor.activeStep @step
+- activeClass = -> "active" if @stepIndex is @editor.activeStepIndex()
+- click = -> @editor.activeStepIndex @stepIndex
 .timeline-step(click=click class=activeClass)
   .icon.inline-left.glyphicon(class=@step.icon)
   .step-details

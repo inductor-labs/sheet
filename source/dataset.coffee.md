@@ -56,30 +56,32 @@ Data from a variety of sources.
         data: []
         steps: []
 
-      self.attrObservable "activeStep", "data"
+      self.attrObservable "activeStepIndex", "data"
 
       self.attrModels "steps", Step
 
       self.steps.observe (newSteps) ->
-        self.activeStep newSteps[newSteps.length - 1]
+        self.activeStepIndex newSteps.length - 1
 
       self.extend
+        actions: require "./actions"
+
         loadData: ->
           self.data(require("./data")())
           #$.getJSON(@sourceUrl()).then(@data)
 
-        activeIndex: ->
-          self.steps().indexOf self.activeStep()
+        activeStep: ->
+          self.steps.get(self.activeStepIndex())
 
         dataAtIndex: (index) ->
           transformAtStep = pipelineAtStep self.steps(), index
           pipelineData transformAtStep, self.data()
 
         inputData: ->
-          self.toSpreadsheet self.dataAtIndex(self.activeIndex())
+          self.toSpreadsheet self.dataAtIndex(self.activeStepIndex())
 
         outputData: ->
-          self.toSpreadsheet self.dataAtIndex(self.activeIndex() + 1)
+          self.toSpreadsheet self.dataAtIndex(self.activeStepIndex() + 1)
 
         publish: ->
           if name = prompt "What should we call this sheet?"
