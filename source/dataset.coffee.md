@@ -109,10 +109,12 @@ Data from a variety of sources.
       self.loadedSheet.observe (sheet) ->
         obj = JSON.parse localStorage.getItem(sheet.value)
 
-        steps = obj.steps.map (step) ->
-          Step(step)
+        steps = obj.steps.map ID Step
 
         self.steps(steps)
+        self.activeStepIndex(obj.activeStepIndex)
         self.data(obj.data)
 
       self
+
+    ID = (f) -> (x) -> f x
