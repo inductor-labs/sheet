@@ -6,6 +6,8 @@ Data from a variety of sources.
     Model = require "./model"
     Step = require "./step"
 
+    FromFile = require "./file_reader"
+
     {defaults} = require "./util"
 
     O = require "o_0"
@@ -56,8 +58,9 @@ Data from a variety of sources.
         data: []
         steps: []
         sourceUrl: ""
+        sourceText: ""
 
-      self.attrObservable "activeStepIndex", "data", "sourceUrl"
+      self.attrObservable "activeStepIndex", "data", "sourceUrl", "sourceText"
 
       self.attrModels "steps", Step
 
@@ -67,8 +70,27 @@ Data from a variety of sources.
       self.extend
         actions: require "./actions"
 
-        loadData: ->
+        loadUrl: ->
           $.getJSON(@sourceUrl()).then(@data)
+
+        loadCSVFromText: (text) ->
+          Papa.parse text,
+            header: true
+          .data
+
+        loadText: ->
+          try
+            parsed = JSON.parse @sourceText()
+          catch
+            parsed = self.loadCSVFromText @sourceText()
+
+          @data parsed
+
+        fileInput: ->
+          FromFile.readerInput
+            json: self.data
+            text: (content) ->
+              self.data self.loadCSVFromText(content)
 
         activeStep: ->
           self.steps.get(self.activeStepIndex())

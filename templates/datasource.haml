@@ -1,0 +1,16 @@
+.datasource
+  %h2.title Add dataset
+  .form-group
+    %h4 From URL
+    .inline-form-container
+      - placeholder = "https://api.github.com/gists"
+      %input.form-control(placeholder=placeholder value=@sourceUrl)
+      %button.btn.btn-default(type="button" click=@loadUrl) Load
+  .form-group.load-from-file
+    %h4 From file
+    .form-container
+  .form-group
+    %h4 By hand
+    .form-container
+      %textarea.form-control(value=@sourceText)
+      %button.btn.btn-default(type="button" click=@loadText) Load

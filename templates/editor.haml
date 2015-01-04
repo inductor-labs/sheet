@@ -1,4 +1,6 @@
 - transform = require "./transform"
+- datasource = require "./datasource"
+
 - click = (e) -> e.preventDefault(); $(e.currentTarget).next().toggleClass "hidden"
 
 %section.main
@@ -18,15 +20,7 @@
       .form-group
         = transform transducer
     - else
-      %h2.title Add dataset transform
-      .form-group
-        %span Data comes from a
-        - options = ["URL", "file", "manual entry"]
-        - placeholder = "https://api.github.com/gists"
-        %select.form-control.select-inline(options=options)
-        .inline-form-container
-          %input.form-control(placeholder=placeholder value=@sourceUrl)
-          %button.btn.btn-default(type="button" click=@loadData) Load
+      = datasource @
 
   .form-group
     %h4 Data after current transform
