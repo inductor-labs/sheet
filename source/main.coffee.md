@@ -7,25 +7,25 @@ Spreadsheets of the future. From the past.
 
     O = require "o_0"
 
-    Dataset = require "./dataset"
-    dataset = Dataset()
+    Editor = require "./editor"
+    global.editor = editor = Editor()
 
     Sidebar = require "./templates/sidebar"
-    document.body.appendChild Sidebar(dataset)
+    document.body.appendChild Sidebar(editor)
 
     EditorTemplate = require "./templates/editor"
-    document.body.appendChild EditorTemplate(dataset)
+    document.body.appendChild EditorTemplate(editor)
 
     # This seems gross
-    $(".load-from-file .form-container").append dataset.fileInput()
+    $(".load-from-file .form-container").append editor.fileInput()
 
     inputSpreadsheet = new Handsontable document.querySelector(".input-spreadsheet-data")
     outputSpreadsheet = new Handsontable document.querySelector(".output-spreadsheet-data")
 
     inputData = O ->
-      dataset.inputData()
+      editor.inputData()
     inputData.observe inputSpreadsheet.loadData
 
     outputData = O ->
-      dataset.outputData()
+      editor.outputData()
     outputData.observe outputSpreadsheet.loadData

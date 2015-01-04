@@ -3,10 +3,12 @@
 
 %aside.sidebar
   %h3.centered Transform Timeline
+  - name = @activeDataset().name
+  %input(value=name)
   .timeline
-    - editor = this
-    = @steps.map (step, index) -> stepTemplate({step, editor, stepIndex: index})
+    - dataset = @activeDataset()
+    = dataset.steps.map (step, index) -> stepTemplate({step, dataset, stepIndex: index})
 
   .sidebar-footer
     %h4.centered Add transform
-    = Actions this
+    = Actions @activeDataset()

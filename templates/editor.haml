@@ -1,12 +1,12 @@
-- transform = require "./transform"
-- datasource = require "./datasource"
+- Transform = require "./transform"
+- Datasource = require "./datasource"
 
 - click = (e) -> e.preventDefault(); $(e.currentTarget).next().toggleClass "hidden"
 
 %section.main
   .publish-container
-    %button.btn.btn-default(type="button" click=@publish) Publish
-    %select.form-control.select-inline(options=@savedSheets value=@loadedSheet)
+    %button.btn.btn-default(type="button" click=@newDataset) New Dataset
+    %select.form-control.select-inline(value=@activeDataset options=@datasets)
 
   .form-group
     %h4 Data before current transform
@@ -18,9 +18,9 @@
       - transducer = @activeStep().transducer()
       %h2.title= transducer.title
       .form-group
-        = transform transducer
+        = Transform transducer
     - else
-      = datasource @
+      = Datasource @activeDataset()
 
   .form-group
     %h4 Data after current transform

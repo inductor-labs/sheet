@@ -40,27 +40,15 @@ Data from a variety of sources.
       else
         cell
 
-    # keys in localStorage saved by this application
-    localStorageKeys = ->
-      Object.keys(localStorage).filter (key) ->
-        key.indexOf("sheet:") >= 0
-
-    loadableSheetOptions = ->
-      selectOptions = localStorageKeys().map (key) ->
-        { name: key.replace("sheet:", ""), value: key }
-
-      selectOptions.unshift { name: "Choose a sheet to load", value: -1 }
-
-      selectOptions
-
     module.exports = (I={}, self=Model(I)) ->
       defaults I,
         data: []
-        steps: []
-        sourceUrl: ""
+        name: "Untitled"
         sourceText: ""
+        sourceUrl: ""
+        steps: []
 
-      self.attrObservable "activeStepIndex", "data", "sourceUrl", "sourceText"
+      self.attrObservable "activeStepIndex", "data", "name", "sourceUrl", "sourceText"
 
       self.attrModels "steps", Step
 
@@ -105,16 +93,6 @@ Data from a variety of sources.
         outputData: ->
           self.toSpreadsheet self.dataAtIndex(self.activeStepIndex() + 1)
 
-        publish: ->
-          if name = prompt "What should we call this sheet?"
-            localStorage.setItem "sheet:#{name}", JSON.stringify(self.toJSON())
-            console.log JSON.stringify(self.toJSON(), null, 2)
-
-        savedSheets: ->
-          loadableSheetOptions()
-
-        loadedSheet: O(loadableSheetOptions()[0])
-
         # TODO: handsontable supports loading data from an object literal.
         # Switch to that format.
         toSpreadsheet: (data) ->
@@ -127,15 +105,6 @@ Data from a variety of sources.
             spreadsheet.unshift Object.keys(firstRow)
 
           spreadsheet
-
-      self.loadedSheet.observe (sheet) ->
-        obj = JSON.parse localStorage.getItem(sheet.value)
-
-        steps = obj.steps.map ID Step
-
-        self.steps(steps)
-        self.activeStepIndex(obj.activeStepIndex)
-        self.data(obj.data)
 
       self
 
