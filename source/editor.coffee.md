@@ -1,11 +1,10 @@
 Editor
 ======
 
-    {defaults} = require "./util"
-    Model = require "./model"
     Dataset = require "./dataset"
-
-    FromFile = require "./file_reader"
+    Model = require "./model"
+    Observable = require "o_0"
+    {defaults} = require "./util"
 
     DATA_NAME = "sheet:APP_DATA"
 
@@ -17,13 +16,17 @@ Editor
       self.attrModels "datasets", Dataset
       self.attrObservable "activeDatasetIndex"
 
-      # Proxy a bunch of stuff
       self.extend
-        activeDataset: ->
-          self.datasets.get(self.activeDatasetIndex())
-
         activeStep: ->
           self.activeDataset().activeStep()
+
+        newDataset: ->
+          dataset = Dataset()
+
+          self.datasets.push dataset
+          self.activeDataset dataset
+
+          return dataset
 
         inputData: ->
           self.activeDataset().inputData()
@@ -40,11 +43,20 @@ Editor
         loadData: (data) ->
           self.datasets data.datasets.map (dataset) ->
             Dataset dataset
+          self.activeDatasetIndex(data.activeDatasetIndex ? 0)
 
-        fileInput: ->
-          FromFile.readerInput
-            json: self.loadData
-            text: (content) ->
-              self.loadData self.loadCSVFromText(content)
+      # This is providing a bi-directional binding from activeDataset to activeDatasetIndex
+      # We should figure out how to extract this into a common pattern.
+      do ->
+        update = (index) ->
+          self.activeDataset self.datasets.get(index)
+
+        self.activeDataset = Observable()
+        self.activeDatasetIndex.observe update
+
+        update(self.activeDatasetIndex())
+
+        self.activeDataset.observe (dataset) ->
+          self.activeDatasetIndex self.datasets.indexOf dataset
 
       return self

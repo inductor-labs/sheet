@@ -14,13 +14,14 @@
     .input-spreadsheet-data.hidden
 
   .editor
-    - if @activeStep()
+    - dataset = @activeDataset()
+    - if dataset.activeStep()
       - transducer = @activeStep().transducer()
       %h2.title= transducer.title
       .form-group
         = Transform transducer
     - else
-      = Datasource @activeDataset()
+      = Datasource dataset
 
   .form-group
     %h4 Data after current transform

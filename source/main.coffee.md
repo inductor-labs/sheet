@@ -16,9 +16,6 @@ Spreadsheets of the future. From the past.
     EditorTemplate = require "./templates/editor"
     document.body.appendChild EditorTemplate(editor)
 
-    # This seems gross
-    $(".load-from-file .form-container").append editor.fileInput()
-
     inputSpreadsheet = new Handsontable document.querySelector(".input-spreadsheet-data")
     outputSpreadsheet = new Handsontable document.querySelector(".output-spreadsheet-data")
 
