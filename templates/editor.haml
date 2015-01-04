@@ -22,10 +22,10 @@
       .form-group
         %span Data comes from a
         - options = ["URL", "file", "manual entry"]
-        - sourceUrl = "https://api.github.com/gists"
+        - placeholder = "https://api.github.com/gists"
         %select.form-control.select-inline(options=options)
         .inline-form-container
-          %input.form-control(value=sourceUrl)
+          %input.form-control(placeholder=placeholder value=@sourceUrl)
           %button.btn.btn-default(type="button" click=@loadData) Load
 
   .form-group

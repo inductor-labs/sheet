@@ -55,8 +55,9 @@ Data from a variety of sources.
       defaults I,
         data: []
         steps: []
+        sourceUrl: ""
 
-      self.attrObservable "activeStepIndex", "data"
+      self.attrObservable "activeStepIndex", "data", "sourceUrl"
 
       self.attrModels "steps", Step
 
@@ -67,8 +68,7 @@ Data from a variety of sources.
         actions: require "./actions"
 
         loadData: ->
-          self.data(require("./data")())
-          #$.getJSON(@sourceUrl()).then(@data)
+          $.getJSON(@sourceUrl()).then(@data)
 
         activeStep: ->
           self.steps.get(self.activeStepIndex())
