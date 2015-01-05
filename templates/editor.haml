@@ -1,7 +1,10 @@
-- Transform = require "./transform"
-- Datasource = require "./datasource"
+:coffeescript
+  Transform = require "./transform"
+  Datasource = require "./datasource"
 
-- click = (e) -> e.preventDefault(); $(e.currentTarget).next().toggleClass "hidden"
+  click = (e) ->
+    e.preventDefault()
+    $(e.currentTarget).next().toggleClass "hidden"
 
 %section.main
   .publish-container

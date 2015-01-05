@@ -107,5 +107,3 @@ Data from a variety of sources.
           spreadsheet
 
       self
-
-    ID = (f) -> (x) -> f x

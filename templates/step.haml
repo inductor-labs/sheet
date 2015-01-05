@@ -1,5 +1,10 @@
-- activeClass = -> "active" if @stepIndex is @dataset.activeStepIndex()
-- click = -> @dataset.activeStepIndex @stepIndex
+:coffeescript
+  activeClass = ->
+    "active" if @stepIndex is @dataset.activeStepIndex()
+
+  click = ->
+    @dataset.activeStepIndex @stepIndex
+
 .timeline-step(click=click class=activeClass)
   .icon.inline-left.glyphicon(class=@step.icon)
   .step-details

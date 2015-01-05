@@ -3,7 +3,7 @@ File Reading
 
 Read files from a file input triggering an event when a person chooses a file.
 
-Currently we only care about json, and text files, though we may care
+Currently we only care about json and text files, though we may care
 about others later.
 
     detectType = (file) ->

@@ -1,13 +1,14 @@
-- stepTemplate = require "./step"
-- Actions = require "./actions"
+:coffeescript
+  Step = require "./step"
+  Actions = require "./actions"
 
 %aside.sidebar
   %h3.centered Transform Timeline
   - name = @activeDataset().name
-  %input(value=name)
+  %input.form-control(value=name)
   .timeline
     - dataset = @activeDataset()
-    = dataset.steps.map (step, index) -> stepTemplate({step, dataset, stepIndex: index})
+    = dataset.steps.map (step, index) -> Step({step, dataset, stepIndex: index})
 
   .sidebar-footer
     %h4.centered Add transform
