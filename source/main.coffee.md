@@ -26,3 +26,5 @@ Spreadsheets of the future. From the past.
     outputData = O ->
       editor.outputData()
     outputData.observe outputSpreadsheet.loadData
+
+    editor.fromLocalStorage()
