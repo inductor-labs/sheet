@@ -2,15 +2,10 @@
   Transform = require "./transform"
   Datasource = require "./datasource"
 
-  click = (e) ->
-    e.preventDefault()
-    $(e.currentTarget).next().toggleClass "hidden"
-
 %section.main
   .form-group
     %h4 Data before current transform
-    %a(href="" click=click) Show
-    .input-spreadsheet-data.hidden
+    .input-spreadsheet-data
 
   .editor
     - dataset = @activeDataset()
@@ -24,8 +19,7 @@
 
   .form-group
     %h4 Data after current transform
-    %a(href="" click=click) Show
-    .output-spreadsheet-data.hidden
+    .output-spreadsheet-data
 
   %footer.sheet-navigation
     %ul.nav.nav-pills
