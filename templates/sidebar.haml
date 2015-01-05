@@ -4,8 +4,6 @@
 
 %aside.sidebar
   %h3.centered Transform Timeline
-  - name = @activeDataset().name
-  %input.form-control(value=name)
   .timeline
     - dataset = @activeDataset()
     = dataset.steps.map (step, index) -> Step({step, dataset, stepIndex: index})

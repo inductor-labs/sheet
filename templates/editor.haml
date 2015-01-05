@@ -7,10 +7,6 @@
     $(e.currentTarget).next().toggleClass "hidden"
 
 %section.main
-  .publish-container
-    %button.btn.btn-default(type="button" click=@newDataset) New Dataset
-    %select.form-control.select-inline(value=@activeDataset options=@datasets)
-
   .form-group
     %h4 Data before current transform
     %a(href="" click=click) Show
@@ -30,3 +26,19 @@
     %h4 Data after current transform
     %a(href="" click=click) Show
     .output-spreadsheet-data.hidden
+
+  %footer.sheet-navigation
+    %ul.nav.nav-pills
+      %li.sheet(role="presentation")
+        %a(href="#" click=@newDataset) + New Dataset
+      - @datasets.each ->
+        :coffeescript
+          activeClass = ->
+            "active" if editor.activeDatasetIndex() is editor.datasets.indexOf(this)
+
+          click = ->
+            editor.activeDatasetIndex editor.datasets.indexOf(this)
+
+        %li.sheet(role="presentation" class=activeClass click=click)
+          %a(href="#")
+            %input.invisible-background(value=@name)

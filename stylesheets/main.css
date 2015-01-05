@@ -47,6 +47,7 @@ ul {
 .main {
   padding-left: 365px /* to simulate padding-left: 1em */;
   padding-top: 1em;
+  padding-right: 1em;
 }
 
 .centered {
@@ -127,4 +128,21 @@ ul {
 
 .publish-container .btn {
   margin-left: 0.5em;
+}
+
+.sheet-navigation {
+  background-color: white;
+  bottom: 0;
+  left: 0;
+  padding-bottom: 0.5em;
+  padding-left: 365px;
+  padding-top: 0.5em;
+  position: fixed;
+  width: 100%;
+}
+
+.invisible-background {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 }

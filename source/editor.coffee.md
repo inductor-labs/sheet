@@ -43,6 +43,7 @@ Editor
         loadData: (data) ->
           self.datasets data.datasets.map (dataset) ->
             Dataset dataset
+
           self.activeDatasetIndex(data.activeDatasetIndex ? 0)
 
       # This is providing a bi-directional binding from activeDataset to activeDatasetIndex

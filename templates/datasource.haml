@@ -13,5 +13,6 @@
   .form-group
     %h4 By hand
     .form-container
-      %textarea.form-control(value=@sourceText)
+      %p
+        %textarea.form-control(value=@sourceText)
       %button.btn.btn-default(type="button" click=@loadText) Load
