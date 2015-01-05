@@ -1,8 +1,15 @@
-- Step = require "../step" # TODO this path is slightly brittle
-
 .btn-group
-  - editor = this
-  - disabled = "disabled" unless editor.data().length
+  :coffeescript
+    Step = require "../step"
+
+    editor = this
+    data = editor.data()
+
+    if Array.isArray data
+      disabled = "disabled" unless data.length
+    else if data?.toString() is "[object Object]"
+      disabled = "disabled" unless Object.keys(data).length
+
   - @actions.forEach (action) ->
     - click = -> editor.steps.push Step action.data
     .btn.btn-default(type="button" click=click title=action.title disabled=disabled)
