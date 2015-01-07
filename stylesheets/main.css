@@ -50,6 +50,10 @@ ul {
   padding-right: 1em;
 }
 
+.pad-for-footer {
+  padding-bottom: 60px;
+}
+
 .centered {
   text-align: center;
 }
@@ -134,11 +138,18 @@ ul {
   background-color: white;
   bottom: 0;
   left: 0;
+  overflow-x: scroll;
   padding-bottom: 0.5em;
   padding-left: 365px;
   padding-top: 0.5em;
   position: fixed;
+  white-space: nowrap;
   width: 100%;
+}
+
+.sheet-navigation .nav-pills li {
+  display: inline-block;
+  float: initial;
 }
 
 .invisible-background {
