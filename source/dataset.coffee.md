@@ -15,14 +15,23 @@ Data from a variety of sources.
     isObject = (value) ->
       value?.toString() is "[object Object]"
 
-    pipelineAtStep = (steps, index) ->
+    joinPipeline = (pieces) ->
       (output) ->
-        steps.slice(0, index).map (step) ->
-          step.transducer().pipe()
+        pieces
         .reverse()
         .reduce (pipe, transform) ->
           transform pipe
         , output
+
+    stepToPipe = (step) ->
+      step.transducer().pipe()
+
+    pipelineAtStep = (steps, index) ->
+      joinPipeline steps.slice(0, index).map stepToPipe
+
+    toArray = (array) ->
+      (input) ->
+        array.push input
 
     pipelineData = (pipeline, input) ->
       output = []
@@ -84,8 +93,13 @@ Data from a variety of sources.
           self.steps.get(self.activeStepIndex())
 
         dataAtIndex: (index) ->
-          transformAtStep = pipelineAtStep self.steps(), index
-          pipelineData transformAtStep, self.data()
+          transformAtStep = pipelineAtStep self.steps, index
+
+          output = []
+
+          transformAtStep(toArray(output)) self.data()
+
+          return output
 
         inputData: ->
           self.toSpreadsheet self.dataAtIndex(self.activeStepIndex())

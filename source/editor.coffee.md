@@ -38,7 +38,8 @@ Editor
           localStorage[DATA_NAME] = JSON.stringify(self.toJSON())
 
         fromLocalStorage: ->
-          self.loadData JSON.parse(localStorage[DATA_NAME])
+          if data = localStorage[DATA_NAME]
+            self.loadData JSON.parse(data)
 
         loadData: (data) ->
           self.datasets data.datasets.map (dataset) ->

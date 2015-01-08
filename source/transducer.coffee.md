@@ -60,6 +60,14 @@ A generalized data transformation
             each
           when "edit"
             ;
+          when "split"
+            partition self.fn()
+
+      self.outputs = ->
+        if self.type() is "split"
+          2
+        else
+          1
 
       self.fn = O ->
         try
